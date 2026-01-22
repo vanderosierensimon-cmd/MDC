@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-canal-cream text-canal-charcoal font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans font-bold;
+  }
+
+  ::selection {
+    @apply bg-canal-gold/30 text-canal-navy;
+  }
+}
+
+@layer components {
+  /* Bouton primaire */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-4 font-semibold transition-all duration-300;
+    @apply bg-canal-gold text-white rounded-full;
+    @apply hover:bg-canal-gold-dark;
+  }
+
+  /* Bouton secondaire */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-8 py-4 font-semibold transition-all duration-300;
+    @apply bg-transparent text-white border-2 border-white/80 rounded-full;
+    @apply hover:bg-white hover:text-canal-navy;
+  }
+
+  /* Cartes simples */
+  .card-simple {
+    @apply bg-white rounded-xl p-6 shadow-sm border border-canal-sand/30;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Scrollbar simple */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-canal-sand;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-canal-slate/30 rounded-full;
+}
+
+/* Animation carrousel */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}

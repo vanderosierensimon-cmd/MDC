@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(frontend-design)",
+      "WebFetch(domain:la-maison-du-canal.vercel.app)",
+      "WebFetch(domain:www.facebook.com)",
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Skill(webapp-testing)",
+      "Bash(pip3 install:*)",
+      "Bash(python3:*)",
+      "Bash(lsof -i :3000)",
+      "Bash(cd:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill:*)",
+      "Bash(curl:*)",
+      "Bash(git init)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
