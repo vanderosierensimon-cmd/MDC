@@ -12,6 +12,17 @@ export const metadata: Metadata = {
   description: 'Restaurant au bord du canal de l\'Espierre à Leers-Nord (Estaimpuis). Cuisine généreuse, ambiance chaleureuse, terrasse apaisante. Entre Belgique et France, une table qui rassemble.',
   keywords: ['restaurant Leers-Nord', 'restaurant Estaimpuis', 'restaurant canal Espierre', 'restaurant Tournai', 'restaurant Mouscron', 'estaminet', 'terrasse canal', 'Canal Plage', 'restaurant frontière belge', 'brasserie belgique'],
   authors: [{ name: 'La Maison du Canal' }],
+  icons: {
+    icon: [
+      { url: '/images/logos/logo-bleu.jpg' },
+      { url: '/images/logos/logo-bleu.jpg', sizes: '32x32', type: 'image/jpeg' },
+      { url: '/images/logos/logo-bleu.jpg', sizes: '16x16', type: 'image/jpeg' }
+    ],
+    apple: [
+      { url: '/images/logos/logo-bleu.jpg', sizes: '180x180', type: 'image/jpeg' }
+    ],
+    shortcut: '/images/logos/logo-bleu.jpg'
+  },
   openGraph: {
     type: 'website',
     locale: 'fr_BE',
@@ -62,7 +73,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col">
         <Header />
-        <main className="flex-1">
+        <main id="main-content" className="flex-1" role="main">
           {children}
         </main>
         <Footer />

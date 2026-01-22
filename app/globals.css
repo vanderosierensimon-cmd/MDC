@@ -23,23 +23,92 @@
 }
 
 @layer components {
-  /* Bouton primaire */
+  /* Bouton primaire avec effets sophistiqués */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-8 py-4 font-semibold transition-all duration-300;
-    @apply bg-canal-gold text-white rounded-full;
-    @apply hover:bg-canal-gold-dark;
+    @apply inline-flex items-center justify-center px-8 py-4 font-semibold transition-all duration-500;
+    @apply bg-gradient-to-r from-canal-gold to-canal-gold-dark text-white rounded-full;
+    @apply hover:shadow-[0_8px_30px_rgba(198,161,91,0.4)] hover:scale-105 hover:-translate-y-0.5;
+    @apply active:scale-95 active:translate-y-0;
+    @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-canal-gold/40 focus-visible:ring-offset-2;
+    @apply relative overflow-hidden;
+    box-shadow: 0 4px 14px rgba(198, 161, 91, 0.25);
   }
 
-  /* Bouton secondaire */
+  .btn-primary::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0;
+    @apply translate-x-[-100%] transition-transform duration-700;
+  }
+
+  .btn-primary:hover::before {
+    @apply translate-x-[100%];
+  }
+
+  /* Bouton secondaire avec effets élégants */
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-8 py-4 font-semibold transition-all duration-300;
-    @apply bg-transparent text-white border-2 border-white/80 rounded-full;
-    @apply hover:bg-white hover:text-canal-navy;
+    @apply inline-flex items-center justify-center px-8 py-4 font-semibold transition-all duration-500;
+    @apply bg-white/5 backdrop-blur-sm text-white border-2 border-white/60 rounded-full;
+    @apply hover:bg-white hover:text-canal-navy hover:border-white hover:scale-105 hover:-translate-y-0.5;
+    @apply hover:shadow-[0_8px_30px_rgba(255,255,255,0.3)];
+    @apply active:scale-95 active:translate-y-0;
+    @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent;
   }
 
-  /* Cartes simples */
+  /* Cartes avec ombres sophistiquées multi-layered */
   .card-simple {
-    @apply bg-white rounded-xl p-6 shadow-sm border border-canal-sand/30;
+    @apply bg-white rounded-2xl p-6 border border-canal-sand/40;
+    @apply transition-all duration-500 ease-out;
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      0 4px 8px rgba(0, 0, 0, 0.06),
+      0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-simple:hover {
+    @apply -translate-y-1 border-canal-gold/20;
+    box-shadow:
+      0 4px 8px rgba(0, 0, 0, 0.06),
+      0 12px 24px rgba(0, 0, 0, 0.1),
+      0 24px 48px rgba(0, 0, 0, 0.12),
+      0 0 0 1px rgba(198, 161, 91, 0.1);
+  }
+
+  /* Glassmorphism effect - évoquant l'eau */
+  .glass {
+    @apply backdrop-blur-xl bg-white/70;
+    @apply border border-white/40;
+    box-shadow:
+      0 8px 32px rgba(61, 85, 111, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  /* Glass dark variant - reflets nocturnes sur le canal */
+  .glass-dark {
+    @apply backdrop-blur-xl bg-canal-navy/85;
+    @apply border border-white/10;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Focus visible global pour accessibilité */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-canal-gold/40 focus-visible:ring-offset-2;
+  }
+
+  /* Lien avec effet d'ondulation */
+  .link-ripple {
+    @apply relative inline-block transition-colors duration-300;
+  }
+
+  .link-ripple::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-0.5 bg-canal-gold;
+    @apply scale-x-0 origin-left transition-transform duration-300;
+  }
+
+  .link-ripple:hover::after {
+    @apply scale-x-100;
   }
 }
 
@@ -49,9 +118,9 @@
   }
 }
 
-/* Scrollbar simple */
+/* Scrollbar élégante */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -59,7 +128,16 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-canal-slate/30 rounded-full;
+  @apply bg-gradient-to-b from-canal-gold to-canal-gold-dark rounded-full;
+  @apply hover:from-canal-gold-dark hover:to-canal-gold;
+  transition: background 0.3s ease;
+}
+
+/* Skip to content pour accessibilité */
+.skip-to-content {
+  @apply absolute -top-full left-4 z-[100] bg-canal-gold text-white px-6 py-3 rounded-lg font-semibold;
+  @apply focus:top-4 transition-all duration-300;
+  @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-canal-gold/40;
 }
 
 /* Animation carrousel */

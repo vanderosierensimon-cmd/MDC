@@ -1,6 +1,10 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import ReviewsCarousel from '@/components/ReviewsCarousel'
+import ScrollReveal from '@/components/ScrollReveal'
 
 export default function Home() {
   return (
@@ -21,32 +25,66 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-canal-cream to-transparent" />
 
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 text-balance">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 text-balance"
+          >
             La Maison du Canal
-          </h1>
-          <p className="text-lg sm:text-xl text-white/90 mb-3">
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-lg sm:text-xl text-white/90 mb-3"
+          >
             Estaminet - Brasserie - Terrasse
-          </p>
-          <p className="text-base text-white/70 max-w-xl mx-auto mb-8">
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-base text-white/70 max-w-xl mx-auto mb-8"
+          >
             Au bord de l'eau, entre Belgique et France, une ancienne maison éclusière
             où l'on prend le temps de vivre.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:+3256914285" className="btn-primary">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <motion.a
+              href="tel:+3256914285"
+              className="btn-primary"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
               Réserver
-            </a>
-            <Link href="/contact" className="btn-secondary">
-              Nous trouver
-            </Link>
-          </div>
+            </motion.a>
+            <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
+              <Link href="/contact" className="btn-secondary">
+                Nous trouver
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
 
-        <div className="absolute bottom-28 left-1/2 -translate-x-1/2">
-          <svg className="w-5 h-5 text-white/60 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          className="absolute bottom-28 left-1/2 -translate-x-1/2"
+        >
+          <svg className="w-5 h-5 text-white/60 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
-        </div>
+        </motion.div>
       </section>
 
       {/* Section L'esprit du lieu */}
@@ -54,7 +92,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
+              <ScrollReveal direction="right">
                 <h2 className="text-3xl md:text-4xl font-bold text-canal-navy mb-6">
                   L'esprit du lieu
                 </h2>
@@ -82,42 +120,35 @@ export default function Home() {
                     <p className="text-sm text-canal-slate">Sans réservation possible</p>
                   </div>
                 </div>
-              </div>
+              </ScrollReveal>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="relative h-48 rounded-xl overflow-hidden">
-                  <Image
-                    src="/images/photos/facade.jpg"
-                    alt="Façade de La Maison du Canal"
-                    fill
-                    className="object-cover"
-                  />
+              <ScrollReveal delay={0.2} direction="left">
+                <div className="grid grid-cols-2 gap-4">
+                  {[
+                    { src: "/images/photos/facade.jpg", alt: "Façade de La Maison du Canal", delay: 0 },
+                    { src: "/images/photos/ambiance-interieur.jpg", alt: "Ambiance intérieure", delay: 0.1, mt: true },
+                    { src: "/images/photos/canal-nature.jpg", alt: "Le canal", delay: 0.2 },
+                    { src: "/images/photos/hero-coucher-soleil.jpg", alt: "Coucher de soleil", delay: 0.3, mt: true }
+                  ].map((img, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: img.delay, duration: 0.6 }}
+                      whileHover={{ scale: 1.05, rotate: idx % 2 === 0 ? 2 : -2 }}
+                      className={`relative h-48 rounded-xl overflow-hidden ${img.mt ? 'mt-8' : ''}`}
+                    >
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        className="object-cover transition-transform duration-500"
+                      />
+                    </motion.div>
+                  ))}
                 </div>
-                <div className="relative h-48 rounded-xl overflow-hidden mt-8">
-                  <Image
-                    src="/images/photos/ambiance-interieur.jpg"
-                    alt="Ambiance intérieure"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="relative h-48 rounded-xl overflow-hidden">
-                  <Image
-                    src="/images/photos/canal-nature.jpg"
-                    alt="Le canal"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="relative h-48 rounded-xl overflow-hidden mt-8">
-                  <Image
-                    src="/images/photos/hero-coucher-soleil.jpg"
-                    alt="Coucher de soleil"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
+              </ScrollReveal>
             </div>
           </div>
         </div>
@@ -126,11 +157,17 @@ export default function Home() {
       {/* Section Entre deux pays */}
       <section className="py-20 bg-canal-navy text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
+          <ScrollReveal className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Entre deux pays, une même table
             </h2>
-            <div className="w-16 h-1 bg-canal-gold mx-auto mb-8" />
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="w-16 h-1 bg-canal-gold mx-auto mb-8"
+            />
             <div className="space-y-4 text-white/80">
               <p>
                 Le canal trace la frontière, mais à La Maison du Canal, on l'efface naturellement.
@@ -141,40 +178,35 @@ export default function Home() {
                 une bonne table, une bière artisanale, le plaisir d'être ensemble.
               </p>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Section Ce que nous proposons */}
       <section className="py-20 bg-canal-cream">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <ScrollReveal className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-canal-navy mb-4">
               Ce que nous proposons
             </h2>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl p-6 text-center">
-              <h3 className="text-xl font-bold text-canal-navy mb-3">Restauration</h3>
-              <p className="text-canal-charcoal/70 text-sm">
-                Cuisine de brasserie généreuse. Planches, viandes, plats du jour.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 text-center">
-              <h3 className="text-xl font-bold text-canal-navy mb-3">Boissons</h3>
-              <p className="text-canal-charcoal/70 text-sm">
-                Large choix de bières belges, vins et softs.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 text-center">
-              <h3 className="text-xl font-bold text-canal-navy mb-3">Terrasse</h3>
-              <p className="text-canal-charcoal/70 text-sm">
-                Vue sur le canal, ambiance apaisante.
-              </p>
-            </div>
+            {[
+              { title: "Restauration", desc: "Cuisine de brasserie généreuse. Planches, viandes, plats du jour.", delay: 0 },
+              { title: "Boissons", desc: "Large choix de bières belges, vins et softs.", delay: 0.1 },
+              { title: "Terrasse", desc: "Vue sur le canal, ambiance apaisante.", delay: 0.2 }
+            ].map((item, idx) => (
+              <ScrollReveal key={idx} delay={item.delay}>
+                <motion.div
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="bg-white rounded-2xl p-6 text-center card-simple"
+                >
+                  <h3 className="text-xl font-bold text-canal-navy mb-3">{item.title}</h3>
+                  <p className="text-canal-charcoal/70 text-sm">{item.desc}</p>
+                </motion.div>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
@@ -185,7 +217,7 @@ export default function Home() {
       {/* Section Réseaux Sociaux */}
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-xl mx-auto text-center">
+          <ScrollReveal className="max-w-xl mx-auto text-center">
             <h2 className="text-2xl font-bold text-canal-navy mb-3">
               Suivez notre actualité
             </h2>
@@ -193,30 +225,36 @@ export default function Home() {
               Retrouvez-nous sur les réseaux sociaux pour découvrir nos événements et notre quotidien.
             </p>
             <div className="flex justify-center gap-4">
-              <a
+              <motion.a
                 href="https://www.facebook.com/lamaisonducanalbelgique"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-canal-navy text-white rounded-full font-medium hover:bg-canal-navy/90 transition-colors"
+                className="flex items-center gap-2 px-6 py-3 bg-canal-navy text-white rounded-full font-medium hover:bg-canal-navy/90 transition-colors focus-ring"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Suivez-nous sur Facebook"
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                 </svg>
                 Facebook
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="https://www.instagram.com/lamaisonducanal"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-canal-gold text-white rounded-full font-medium hover:bg-canal-gold-dark transition-colors"
+                className="flex items-center gap-2 px-6 py-3 bg-canal-gold text-white rounded-full font-medium hover:bg-canal-gold-dark transition-colors focus-ring"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Suivez-nous sur Instagram"
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                 </svg>
                 Instagram
-              </a>
+              </motion.a>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -233,7 +271,7 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="max-w-2xl mx-auto text-center text-white">
+          <ScrollReveal className="max-w-2xl mx-auto text-center text-white">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Venez nous rendre visite
             </h2>
@@ -242,19 +280,26 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="tel:+3256914285" className="btn-primary">
+              <motion.a
+                href="tel:+3256914285"
+                className="btn-primary"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 056 91 42 85
-              </a>
-              <Link href="/contact" className="btn-secondary">
-                Nous trouver
-              </Link>
+              </motion.a>
+              <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
+                <Link href="/contact" className="btn-secondary">
+                  Nous trouver
+                </Link>
+              </motion.div>
             </div>
 
             <div className="mt-10 pt-8 border-t border-white/20 flex flex-col sm:flex-row justify-center gap-6 text-sm text-white/60">
               <span>Rue du Canal 6, 7730 Leers-Nord</span>
               <span>Ouvert tous les jours 11h - 21h</span>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
     </>
