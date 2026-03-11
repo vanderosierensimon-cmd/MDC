@@ -419,7 +419,7 @@ export default function CartePage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-white/60 text-sm"
           >
-            Estaminet · Brasserie · Terrasse
+            Brasserie · Terrasse
           </motion.p>
         </div>
       </div>

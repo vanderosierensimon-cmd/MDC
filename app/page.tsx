@@ -40,14 +40,14 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg sm:text-xl text-white/90 mb-3"
           >
-            Estaminet - Brasserie - Terrasse
+            Brasserie - Terrasse
           </motion.p>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-base text-white/70 max-w-xl mx-auto mb-8"
+            className="text-base text-white/90 max-w-xl mx-auto mb-8 drop-shadow"
           >
             Au bord de l'eau, entre Belgique et France, une ancienne maison éclusière
             où l'on prend le temps de vivre.
