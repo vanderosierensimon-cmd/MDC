@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="bg-canal-navy text-white" role="contentinfo">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm text-center sm:text-left">
 
           {/* Adresse & contact */}
           <address className="not-italic text-white/70 space-y-1">
@@ -32,13 +32,18 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a href="/carte.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-canal-gold transition-colors">
+                  La Carte
+                </a>
+              </li>
             </ul>
           </nav>
 
           {/* Réseaux sociaux */}
           <div>
             <p className="font-semibold text-white mb-2">Suivez-nous</p>
-            <div className="flex gap-3">
+            <div className="flex gap-3 justify-center sm:justify-start">
               <a
                 href="https://www.facebook.com/lamaisonducanalbelgique"
                 target="_blank"
