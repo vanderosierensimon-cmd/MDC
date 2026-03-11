@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -14,14 +15,14 @@ export const metadata: Metadata = {
   authors: [{ name: 'La Maison du Canal' }],
   icons: {
     icon: [
-      { url: '/images/logos/logo-bleu.jpg' },
-      { url: '/images/logos/logo-bleu.jpg', sizes: '32x32', type: 'image/jpeg' },
-      { url: '/images/logos/logo-bleu.jpg', sizes: '16x16', type: 'image/jpeg' }
+      { url: '/images/logos/logo-hd.png', type: 'image/png' },
+      { url: '/images/logos/logo-hd.png', sizes: '32x32', type: 'image/png' },
+      { url: '/images/logos/logo-hd.png', sizes: '16x16', type: 'image/png' }
     ],
     apple: [
-      { url: '/images/logos/logo-bleu.jpg', sizes: '180x180', type: 'image/jpeg' }
+      { url: '/images/logos/logo-hd.png', sizes: '180x180', type: 'image/png' }
     ],
-    shortcut: '/images/logos/logo-bleu.jpg'
+    shortcut: '/images/logos/logo-hd.png'
   },
   openGraph: {
     type: 'website',
@@ -72,6 +73,18 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="min-h-screen flex flex-col">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-7P5BG3T2FH"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-7P5BG3T2FH');
+          `}
+        </Script>
         <Header />
         <main id="main-content" className="flex-1" role="main">
           {children}
