@@ -13,17 +13,6 @@ export const metadata: Metadata = {
   description: 'Restaurant au bord du canal de l\'Espierre à Leers-Nord (Estaimpuis). Cuisine généreuse, ambiance chaleureuse, terrasse apaisante. Entre Belgique et France, une table qui rassemble.',
   keywords: ['restaurant Leers-Nord', 'restaurant Estaimpuis', 'restaurant canal Espierre', 'restaurant Tournai', 'restaurant Mouscron', 'estaminet', 'terrasse canal', 'Canal Plage', 'restaurant frontière belge', 'brasserie belgique'],
   authors: [{ name: 'La Maison du Canal' }],
-  icons: {
-    icon: [
-      { url: '/images/logos/logo-hd.png', type: 'image/png' },
-      { url: '/images/logos/logo-hd.png', sizes: '32x32', type: 'image/png' },
-      { url: '/images/logos/logo-hd.png', sizes: '16x16', type: 'image/png' }
-    ],
-    apple: [
-      { url: '/images/logos/logo-hd.png', sizes: '180x180', type: 'image/png' }
-    ],
-    shortcut: '/images/logos/logo-hd.png'
-  },
   openGraph: {
     type: 'website',
     locale: 'fr_BE',
