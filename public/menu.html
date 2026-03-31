@@ -8,12 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     :root {
       --navy: #3D556F;
       --gold: #C6A15B;
@@ -22,625 +16,490 @@
       --charcoal: #2E2E2E;
       --text: #333333;
       --text-light: #555555;
+      --white: #ffffff;
     }
 
-    @page {
-      size: A4 portrait;
-      margin: 0;
-    }
-
-    html, body {
+    * {
       margin: 0;
       padding: 0;
-      width: 210mm;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: 'Montserrat', sans-serif;
-      font-size: 9pt;
-      line-height: 1.4;
+      font-size: 16px;
+      line-height: 1.5;
       color: var(--charcoal);
-      background: white;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
+      background: var(--cream);
+      min-height: 100vh;
     }
 
-    .page {
-      width: 210mm;
-      height: 297mm;
-      padding: 10mm 12mm 15mm 12mm;
-      margin: 0;
-      background: white;
-      position: relative;
-      overflow: hidden;
-      box-sizing: border-box;
+    /* ===== STICKY WRAPPER ===== */
+    .sticky-top {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
     }
 
-    /* Header */
+    /* ===== HEADER ===== */
     .header {
       background: var(--navy);
       text-align: center;
-      margin: -10mm -12mm 6mm -12mm;
-      padding: 6mm 12mm 5mm 12mm;
+      padding: 20px 16px 16px;
     }
 
     .header img {
-      height: 22mm;
+      height: 95px;
       width: auto;
     }
 
     .header .tagline {
-      font-size: 9pt;
+      font-size: 11px;
       color: var(--gold);
       font-weight: 500;
-      letter-spacing: 2px;
-      margin-top: 2mm;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 6px;
     }
 
-    /* Page title */
+    /* ===== NAV TABS ===== */
+    .nav-tabs {
+      background: var(--navy);
+      border-top: 1px solid rgba(198,161,91,0.3);
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 0 4px 4px;
+      text-align: center;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-tabs button {
+      display: inline-block;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 10px 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .nav-tabs button.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ===== SECTIONS ===== */
+    .section-page {
+      display: none;
+      padding: 16px 16px 40px;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .section-page.active {
+      display: block;
+    }
+
     .page-title {
-      font-size: 13pt;
-      font-weight: 700;
+      font-size: 22px;
+      font-weight: 800;
       color: var(--navy);
       text-align: center;
-      margin-bottom: 4mm;
-      padding-bottom: 2mm;
+      padding: 20px 0 12px;
       border-bottom: 2px solid var(--gold);
-    }
-
-    /* Two columns layout */
-    .columns {
-      display: flex;
-      gap: 8mm;
-    }
-
-    .column {
-      flex: 1;
-    }
-
-    /* Three columns layout */
-    .columns-3 {
-      display: flex;
-      gap: 6mm;
-    }
-
-    .columns-3 .column {
-      flex: 1;
-    }
-
-    /* Full width section */
-    .section-full {
-      margin-bottom: 4mm;
-      padding: 2mm 3mm;
-      border-left: 3px solid var(--gold);
-    }
-
-    /* Section */
-    .section {
-      margin-bottom: 4mm;
-      padding: 2mm 3mm;
-      border-left: 3px solid var(--gold);
-    }
-
-    .section-title {
-      font-size: 10pt;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 2mm;
-      padding-bottom: 1mm;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .section-subtitle {
-      font-size: 8pt;
-      color: var(--gold-dark);
-      font-weight: 700;
-      text-transform: uppercase;
+      margin-bottom: 20px;
       letter-spacing: 1px;
-      margin-top: 3mm;
-      margin-bottom: 2mm;
     }
 
-    /* Items */
+    .page-hours {
+      text-align: center;
+      font-size: 13px;
+      color: var(--gold-dark);
+      font-style: italic;
+      font-weight: 500;
+      margin-top: -12px;
+      margin-bottom: 20px;
+    }
+
+    /* ===== CATEGORY BLOCK ===== */
+    .category {
+      margin-bottom: 24px;
+      background: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+
+    .category-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      background: var(--navy);
+      padding: 10px 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .category-subtitle {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 12px 16px 4px;
+      border-top: 1px solid #f0ece3;
+      margin-top: 4px;
+    }
+
+    .category-hours {
+      font-size: 12px;
+      color: var(--gold-dark);
+      font-style: italic;
+      padding: 6px 16px 2px;
+    }
+
+    /* ===== ITEMS ===== */
     .item {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 1.5mm;
+      align-items: flex-start;
+      padding: 12px 16px;
+      border-bottom: 1px solid #f5f2eb;
+      gap: 12px;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .item-left {
+      flex: 1;
+      min-width: 0;
     }
 
     .item-name {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
+      font-size: 15px;
+      font-weight: 500;
       color: var(--text);
-    }
-
-    .item-name::after {
-      content: ' ............................................................................................................................................................';
-      position: absolute;
-      color: #ccc;
-      letter-spacing: 1px;
-      font-size: 7pt;
-    }
-
-    .item-price {
-      font-weight: 600;
-      color: var(--navy);
-      margin-left: 3mm;
-      white-space: nowrap;
-      background: white;
-      padding-left: 2mm;
+      line-height: 1.4;
     }
 
     .item-desc {
-      font-size: 7pt;
+      font-size: 13px;
       color: var(--text-light);
       font-style: italic;
-      margin-top: -0.5mm;
-      margin-bottom: 1.5mm;
-      padding-left: 2mm;
+      margin-top: 3px;
+      line-height: 1.4;
     }
 
     .item-note {
-      font-size: 7pt;
-      color: var(--gold-dark);
-      font-style: italic;
-      margin-top: 2mm;
-      margin-bottom: 2mm;
-    }
-
-    .supplement {
+      font-size: 12px;
       color: var(--text-light);
       font-style: italic;
-      font-size: 8pt;
+      margin-top: 3px;
     }
 
-    /* Coup de coeur avec icône coeur */
-    .item-favorite {
-      background: rgba(198, 161, 91, 0.15);
-      margin: 1mm -2mm 3mm -2mm;
-      padding: 1.5mm 2mm;
-      border-radius: 0;
+    .item-price {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding-top: 1px;
+    }
+
+    /* Favorite item */
+    .item.favorite {
+      background: rgba(198, 161, 91, 0.10);
       border-left: 3px solid var(--gold);
     }
 
-    .item-favorite .item-price {
-      background: transparent;
+    .item.favorite .item-name::before {
+      content: '♥ ';
+      color: var(--gold);
+      font-size: 13px;
     }
 
-    .item-favorite .item-name {
+    .item.favorite .item-name {
       font-weight: 600;
     }
 
-    .item-favorite .item-name::before {
-      content: '♥';
-      color: var(--gold);
-      margin-right: 2mm;
-      font-size: 10pt;
+    /* Supplement */
+    .item.supplement .item-name,
+    .item.supplement .item-price {
+      color: var(--text-light);
+      font-style: italic;
+      font-size: 13px;
     }
 
-    .item-favorite .item-name::after {
-      content: ' ....................................................................................................................................................';
+    /* Veggie badge */
+    .veggie-badge {
+      display: inline-block;
+      background: #4a7c59;
+      color: white;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+      letter-spacing: 0.5px;
     }
 
-    /* Tableau pleine largeur */
-    .full-table {
+    /* ===== BIERE TABLE ===== */
+    .beer-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 1mm;
     }
 
-    .full-table th {
-      font-size: 8pt;
+    .beer-table thead tr {
+      background: rgba(61,85,111,0.08);
+    }
+
+    .beer-table th {
+      font-size: 11px;
       font-weight: 700;
       color: var(--navy);
       text-align: center;
-      padding: 1.5mm 2mm;
+      padding: 8px 6px;
       border-bottom: 2px solid var(--gold);
-      background: transparent;
     }
 
-    .full-table th:first-child {
+    .beer-table th:first-child {
       text-align: left;
-      width: 50%;
+      padding-left: 16px;
+      width: 44%;
     }
 
-    .full-table td {
-      font-size: 8pt;
-      padding: 1.5mm 2mm;
+    .beer-table td {
+      font-size: 14px;
+      padding: 11px 6px;
       text-align: center;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #f0ece3;
       color: var(--text);
     }
 
-    .full-table td:first-child {
+    .beer-table td:first-child {
       text-align: left;
+      padding-left: 16px;
+      font-weight: 500;
     }
 
-    .full-table td.price {
+    .beer-table td.price {
       font-weight: 600;
       color: var(--navy);
     }
 
-    .full-table tr.favorite td {
-      background: rgba(198, 161, 91, 0.15);
+    .beer-table tr.favorite td {
+      background: rgba(198, 161, 91, 0.10);
     }
 
-    .full-table tr.favorite td:first-child {
+    .beer-table tr.favorite td:first-child {
       font-weight: 600;
       border-left: 3px solid var(--gold);
+      padding-left: 13px;
     }
 
-    .full-table tr.favorite td:first-child::before {
+    .beer-table tr.favorite td:first-child::before {
       content: '♥ ';
       color: var(--gold);
+      font-size: 12px;
     }
 
-    .full-table tr.favorite-spacer td {
-      padding: 0;
-      height: 2mm;
-      border: none;
-      background: transparent;
+    .beer-table tr:last-child td {
+      border-bottom: none;
     }
 
-    /* Footer - toujours en bas */
-    .footer {
-      position: absolute;
-      bottom: 8mm;
-      left: 12mm;
-      right: 12mm;
-      text-align: center;
-      padding-top: 3mm;
-      border-top: 1px solid #ddd;
-      font-size: 7pt;
-      color: var(--text-light);
+    /* ===== ENCART ACCOMPAGNEMENTS ===== */
+    .accomp-box {
+      background: var(--cream);
+      border: 2px solid var(--gold);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 0 0 24px;
     }
 
-    .footer strong {
-      color: var(--navy);
-    }
-
-    .legal-mention {
-      font-size: 6pt;
-      color: #888;
-      margin-top: 1mm;
-      font-style: italic;
-    }
-
-    /* Encart suggestions doré */
-    .suggestions-box {
-      margin: 4mm 0 0 0;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      border-radius: 3mm;
-      padding: 5mm 8mm;
-      text-align: center;
-    }
-
-    .suggestions-title {
-      color: white;
-      font-size: 12pt;
+    .accomp-box .accomp-title {
+      font-size: 13px;
       font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .accomp-box .accomp-items {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .accomp-box .accomp-note {
+      font-size: 12px;
+      color: var(--text-light);
+      font-style: italic;
+      margin-top: 6px;
+    }
+
+    /* ===== SUGGESTIONS BOX ===== */
+    .suggestions-box {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      border-radius: 10px;
+      padding: 20px 16px;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .suggestions-box .suggestions-title {
+      color: white;
+      font-size: 16px;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 2px;
     }
 
-    .suggestions-text {
+    .suggestions-box .suggestions-text {
       color: rgba(255,255,255,0.9);
-      font-size: 9pt;
-      margin-top: 2mm;
+      font-size: 13px;
+      margin-top: 6px;
     }
 
-    /* Encart horaires */
-    .hours-box {
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.7);
       text-align: center;
-      margin-top: 4mm;
-      padding: 3mm;
-      border: 1px solid var(--gold);
-      border-radius: 2mm;
+      padding: 20px 16px;
+      font-size: 13px;
+      line-height: 1.6;
     }
 
-    .hours-box p {
-      font-size: 7pt;
-      color: var(--text-light);
+    .footer strong {
+      color: var(--gold);
+      font-size: 14px;
     }
 
-    .hours-box .title {
-      font-size: 8pt;
-      color: var(--navy);
-      font-weight: 600;
-      margin-bottom: 1mm;
+    .footer .legal {
+      font-size: 11px;
+      margin-top: 6px;
+      color: rgba(255,255,255,0.45);
+      font-style: italic;
     }
 
-    .hours-box .highlight {
-      color: var(--gold-dark);
-      font-weight: 500;
-      margin-top: 1mm;
-    }
-
-    /* Screen view */
-    @media screen {
-      html, body {
-        width: auto;
-      }
-      body {
-        background: #e0e0e0;
-        padding: 20px;
-      }
-      .page {
-        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        margin: 0 auto 30px auto;
-      }
-      .page:last-child {
-        margin-bottom: 20px;
-      }
-      .screen-controls {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: var(--navy);
-        color: white;
-        padding: 15px 25px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-        z-index: 100;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        font-family: 'Montserrat', sans-serif;
-      }
-      .screen-controls:hover {
-        background: var(--gold);
-      }
-    }
-
-    @media print {
-      @page {
-        size: 210mm 297mm;
-        margin: 0;
-      }
-      * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        color-adjust: exact !important;
-      }
-      html {
-        margin: 0 !important;
-        padding: 0 !important;
-      }
-      body {
-        margin: 0 !important;
-        padding: 0 !important;
-        background: white !important;
-        width: 210mm !important;
-        font-size: 0 !important;
-      }
-      .screen-controls {
-        display: none !important;
-      }
-      .page {
-        width: 210mm !important;
-        height: 297mm !important;
-        margin: 0 !important;
-        padding: 10mm 12mm 15mm 12mm !important;
-        box-shadow: none !important;
-        page-break-after: always !important;
-        page-break-inside: avoid !important;
-        display: block !important;
-        position: relative !important;
-        overflow: hidden !important;
-        font-size: 9pt !important;
-      }
-      .page:last-child {
-        page-break-after: auto !important;
-      }
-    }
   </style>
 </head>
 <body>
 
-  <button class="screen-controls" onclick="window.print()">Imprimer le menu</button>
+  <!-- STICKY WRAPPER : header + onglets -->
+  <div class="sticky-top">
+    <header class="header">
+      <img src="assets/logo-blanc.png" alt="La Maison du Canal">
+      <p class="tagline">Brasserie &bull; Terrasse</p>
+    </header>
 
-  <!-- PAGE 1: BOISSONS (sans Digestifs) -->
-  <div class="page">
-    <div class="header">
-      <img src="/assets/logo-blanc.png" alt="La Maison du Canal">
-      <p class="tagline">Estaminet - Brasserie - Terrasse</p>
-    </div>
+    <!-- NAV TABS -->
+    <nav class="nav-tabs" id="navTabs">
+    <button class="active" onclick="showTab('boissons', this)">Boissons</button>
+    <button onclick="showTab('bieres', this)">Bières</button>
+    <button onclick="showTab('vins', this)">Vins</button>
+    <button onclick="showTab('restauration', this)">Restauration</button>
+    <button onclick="showTab('planches', this)">Planches & Tapas</button>
+    <button onclick="showTab('desserts', this)">Desserts</button>
+    <button onclick="showTab('chauds', this)">Boissons Chaudes</button>
+    </nav>
+  </div><!-- /sticky-top -->
 
+  <!-- ===================== PAGE BOISSONS ===================== -->
+  <section class="section-page active" id="tab-boissons">
     <h2 class="page-title">Nos Boissons</h2>
 
-    <!-- Softs en pleine largeur -->
-    <div class="section-full">
-      <h3 class="section-title">Softs</h3>
-      <div class="item">
-        <span class="item-name">Jus de fruits (orange, ananas, pomme, pomme-cerise, abricot, pamplemousse)</span>
-        <span class="item-price">2,80 €</span>
-      </div>
-      <div class="item">
-        <span class="item-name">ACE (orange-tomate)</span>
-        <span class="item-price">2,80 €</span>
-      </div>
-      <div class="item">
-        <span class="item-name">Pepsi</span>
-        <span class="item-price">2,80 €</span>
-      </div>
-      <div class="item">
-        <span class="item-name">Pepsi Max</span>
-        <span class="item-price">2,80 €</span>
-      </div>
-      <div class="item">
-        <span class="item-name">Fanta</span>
-        <span class="item-price">2,80 €</span>
-      </div>
-      <div class="item">
-        <span class="item-name">Sprite</span>
-        <span class="item-price">2,80 €</span>
-      </div>
-      <div class="item">
-        <span class="item-name">Fuze Tea Pétillant</span>
-        <span class="item-price">2,80 €</span>
-      </div>
-      <div class="item">
-        <span class="item-name">Fuze Tea Pêche</span>
-        <span class="item-price">2,80 €</span>
-      </div>
-      <div class="item">
-        <span class="item-name">Tonissteiner Citron</span>
-        <span class="item-price">2,80 €</span>
-      </div>
-      <div class="item">
-        <span class="item-name">Bliss (Tonic, Agrumes, Pink, Lemon)</span>
-        <span class="item-price">2,80 €</span>
-      </div>
-      <div class="item">
-        <span class="item-name">Red Bull</span>
-        <span class="item-price">3,00 €</span>
-      </div>
-      <div class="item supplement">
-        <span class="item-name">Supplément sirop</span>
-        <span class="item-price">+ 0,50 €</span>
-      </div>
-
-      <h4 class="section-subtitle">Eaux</h4>
-      <div class="item">
-        <span class="item-name">Eau plate ou pétillante 1/4</span>
-        <span class="item-price">2,50 €</span>
-      </div>
-      <div class="item">
-        <span class="item-name">Eau plate ou pétillante 1/2</span>
-        <span class="item-price">3,50 €</span>
-      </div>
-      <div class="item">
-        <span class="item-name">Eau plate ou pétillante 1L</span>
-        <span class="item-price">6,00 €</span>
-      </div>
+    <div class="category">
+      <div class="category-title">Softs <span style="font-weight:400;font-size:11px;opacity:.8;text-transform:none;">(20cl)</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Pepsi</span></div><span class="item-price">2,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Pepsi Max</span></div><span class="item-price">2,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Fanta</span></div><span class="item-price">2,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Sprite</span></div><span class="item-price">2,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Lipton Ice Tea Pêche</span></div><span class="item-price">2,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Lipton Ice Tea Pétillant</span></div><span class="item-price">2,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Tonissteiner Citron</span></div><span class="item-price">2,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Jus de fruits</span><p class="item-desc">Orange, ananas, pomme, pomme-cerise, pamplemousse</p></div><span class="item-price">2,80 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Bliss</span><p class="item-desc">Tonic, Agrumes, Pink, Lemon</p></div><span class="item-price">2,80 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Red Bull (33cl)</span></div><span class="item-price">3,50 €</span></div>
+      <div class="item supplement"><div class="item-left"><span class="item-name">Supplément sirop</span></div><span class="item-price">+ 0,50 €</span></div>
+      <div class="category-subtitle">Eaux</div>
+      <div class="item"><div class="item-left"><span class="item-name">Eau plate ou pétillante ¼ Chaudfontaine</span></div><span class="item-price">2,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Eau plate ou pétillante 1L Ordal</span></div><span class="item-price">6,00 €</span></div>
     </div>
 
-    <div class="columns">
-      <div class="column">
-
-        <div class="section">
-          <h3 class="section-title">Apéritifs</h3>
-          <div class="item">
-            <span class="item-name">Kir vin blanc</span>
-            <span class="item-price">4,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Kir pétillant</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item-desc">Cassis, violette, mûre, pêche</div>
-          <div class="item">
-            <span class="item-name">Coupe de blanc pétillant</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Coupe de champagne</span>
-            <span class="item-price">9,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Aperol Spritz</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Martini blanc / rouge</span>
-            <span class="item-price">4,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Martini Bellini</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Porto blanc / rouge</span>
-            <span class="item-price">4,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Pineau</span>
-            <span class="item-price">4,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Ricard</span>
-            <span class="item-price">3,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Picon vin blanc</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Picon bière 33cl</span>
-            <span class="item-price">4,00 €</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="column">
-
-        <div class="section">
-          <h3 class="section-title">Alcools</h3>
-          <div class="item">
-            <span class="item-name">Vodka rouge / blanche</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Gin</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Rhum brun / blanc</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Pisang / Campari / Pasoa</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">JB Whisky</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Jack Daniel's</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Shooter</span>
-            <span class="item-price">3,00 €</span>
-          </div>
-          <p class="item-note">Whisky Coca, Gin Tonic, etc. servis avec le soft à côté</p>
-
-          <h4 class="section-subtitle">Rhums & Whiskys Premium</h4>
-          <div class="item">
-            <span class="item-name">Rumbullion</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Diplomatico</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-        </div>
-
-      </div>
+    <div class="category">
+      <div class="category-title">Apéritifs</div>
+      <div class="item"><div class="item-left"><span class="item-name">Ricard</span></div><span class="item-price">3,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Kir vin blanc</span></div><span class="item-price">4,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Martini blanc / rouge</span></div><span class="item-price">4,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Porto blanc / rouge</span></div><span class="item-price">4,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Pineau</span></div><span class="item-price">4,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Picon bière 33cl</span></div><span class="item-price">4,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Coupe de blanc pétillant</span></div><span class="item-price">6,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Martini Bellini</span></div><span class="item-price">6,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Picon vin blanc</span></div><span class="item-price">6,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Kir pétillant</span><p class="item-desc">Cassis, violette, mûre, pêche</p></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Aperol Spritz</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Limoncello Spritz</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item favorite"><div class="item-left"><span class="item-name">Spritz Saint-Germain</span></div><span class="item-price">8,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Coupe de champagne</span></div><span class="item-price">9,00 €</span></div>
     </div>
 
-    <div class="footer">
-      <strong>La Maison du Canal</strong> &bull; Rue du Canal 6, 7730 Leers-Nord
-      <p class="legal-mention">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
+    <div class="category">
+      <div class="category-title">Alcools</div>
+      <div class="item"><div class="item-left"><span class="item-name">Vodka rouge / blanche</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Gin</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Rhum brun / blanc</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Pisang / Campari / Pasoa</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">J&amp;B Whisky</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Jack Daniel's</span></div><span class="item-price">6,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Rumbullion</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Diplomatico</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item" style="border-bottom:none;"><div class="item-left"><span class="item-note">Whisky Coca, Gin Tonic, etc. servis avec le soft à côté (soft en supplément)</span></div></div>
     </div>
-  </div>
 
-  <!-- PAGE 2: BIERES -->
-  <div class="page">
-    <div class="header">
-      <img src="/assets/logo-blanc.png" alt="La Maison du Canal">
-      <p class="tagline">Estaminet - Brasserie - Terrasse</p>
+    <div class="category">
+      <div class="category-title">Digestifs</div>
+      <div class="item"><div class="item-left"><span class="item-name">Get 27 / Get 31</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Limoncello</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Baileys</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Amaretto</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Cointreau</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Eau de Villée</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Poire Williams</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Cognac</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Grand Marnier</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Calvados</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Armagnac</span></div><span class="item-price">7,00 €</span></div>
     </div>
 
+  </section>
+
+  <!-- ===================== PAGE BIERES ===================== -->
+  <section class="section-page" id="tab-bieres">
     <h2 class="page-title">Nos Bières</h2>
 
-    <!-- Bières Pression - Pleine largeur avec tableau -->
-    <div class="section-full">
-      <h3 class="section-title">Bières Pression</h3>
-      <table class="full-table">
+    <div class="category">
+      <div class="category-title">Bières Pression</div>
+      <table class="beer-table">
         <thead>
           <tr>
             <th></th>
@@ -650,37 +509,41 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="favorite-spacer"><td colspan="4"></td></tr>
           <tr class="favorite">
             <td>Paix Dieu 10°</td>
-            <td class="price">4,00 €</td>
-            <td class="price">5,00 €</td>
-            <td class="price">7,00 €</td>
+            <td class="price">4,50 €</td>
+            <td class="price">6,00 €</td>
+            <td class="price">8,00 €</td>
           </tr>
-          <tr class="favorite-spacer"><td colspan="4"></td></tr>
           <tr>
             <td>Bon Secours Prestige 9°</td>
-            <td class="price">4,00 €</td>
-            <td class="price">5,00 €</td>
-            <td class="price">7,00 €</td>
+            <td class="price">4,50 €</td>
+            <td class="price">6,00 €</td>
+            <td class="price">8,00 €</td>
           </tr>
           <tr>
             <td>Triple Karmeliet 8,4°</td>
+            <td class="price">4,50 €</td>
+            <td class="price">6,00 €</td>
+            <td class="price">8,00 €</td>
+          </tr>
+          <tr>
+            <td>Kasteel Rouge 8°</td>
+            <td class="price">4,50 €</td>
+            <td class="price">6,00 €</td>
+            <td class="price">8,00 €</td>
+          </tr>
+          <tr>
+            <td>Paix Dieu Nova 6°</td>
             <td class="price">4,00 €</td>
             <td class="price">5,00 €</td>
             <td class="price">7,00 €</td>
           </tr>
           <tr>
-            <td>Kasteel Rouge 8°</td>
-            <td class="price">3,50 €</td>
-            <td class="price">4,50 €</td>
-            <td class="price">6,50 €</td>
-          </tr>
-          <tr>
             <td>Leffe Blonde 6,6°</td>
-            <td class="price">3,50 €</td>
-            <td class="price">4,50 €</td>
-            <td class="price">6,50 €</td>
+            <td class="price">4,00 €</td>
+            <td class="price">5,00 €</td>
+            <td class="price">7,00 €</td>
           </tr>
           <tr>
             <td>Moinette 8,5°</td>
@@ -702,632 +565,227 @@
           </tr>
         </tbody>
       </table>
+      <div class="item" style="border-top:1px solid #f0ece3;"><div class="item-left"><span class="item-note">Bière du moment — voir tableau des suggestions</span></div></div>
     </div>
 
-    <!-- Bières Bouteilles, Trappistes et Régionale -->
-    <div class="section-full">
-      <h3 class="section-title">Bières Bouteilles, Trappistes & Régionale</h3>
-      <div class="columns">
-        <div class="column">
-          <div class="item">
-            <span class="item-name">Jupiler NA 0° (25cl)</span>
-            <span class="item-price">3,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Rodenbach 5,2° (25cl)</span>
-            <span class="item-price">3,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Hoegaarden Citron/Rosée 3° (25cl)</span>
-            <span class="item-price">3,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Kriek 5,2° (25cl)</span>
-            <span class="item-price">3,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Leffe Brune 6,5°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Bush Ambrée 12°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Kwak Ambrée 8,4°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Corne Triple 10°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Omer 8°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Duvel Blonde 8,5°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-        </div>
-        <div class="column">
-          <div class="item">
-            <span class="item-name">Chouffe Blonde 8°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Saint Feuillien Blonde 7,5°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Desperados 5,9°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Pêche Mel Bush 8,5°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Fram'Bush 8,5°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Chimay Rouge 7°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Chimay Bleue 9°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Orval 6,2°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Westmalle Triple 9,5°</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item item-favorite">
-            <span class="item-name">Satcheu 6,3° (75cl)</span>
-            <span class="item-price">10,00 €</span>
-          </div>
-        </div>
-      </div>
+    <div class="category">
+      <div class="category-title">Bières Bouteilles, Trappistes &amp; Régionale <span style="font-weight:400;font-size:11px;opacity:.8;text-transform:none;">(33cl)</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Jupiler NA 0° (25cl)</span></div><span class="item-price">3,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Rodenbach 5,2° (25cl)</span></div><span class="item-price">4,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Hoegaarden Blanche / Rosé 3° (25cl)</span></div><span class="item-price">4,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Maes Citron (25cl)</span></div><span class="item-price">4,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Kriek 5,2° (25cl)</span></div><span class="item-price">3,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Leffe Brune 6,5°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Bush Ambrée 12°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Omer 8°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Duvel Blonde 8,5°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Chouffe Blonde 8°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Saint Feuillien Blonde 7,5°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Desperados 5,9°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Pêche Mel Bush 8,5°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Fram'Bush 8,5°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Chimay Rouge 7°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Chimay Bleue 9°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Orval 6,2°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Westmalle Triple 9,5°</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Kasteel Tropicale 7°</span></div><span class="item-price">5,00 €</span></div>
     </div>
 
-    <div class="footer">
-      <strong>La Maison du Canal</strong> &bull; Rue du Canal 6, 7730 Leers-Nord
-      <p class="legal-mention">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
-    </div>
-  </div>
+  </section>
 
-  <!-- PAGE 3: VINS -->
-  <div class="page">
-    <div class="header">
-      <img src="/assets/logo-blanc.png" alt="La Maison du Canal">
-      <p class="tagline">Estaminet - Brasserie - Terrasse</p>
-    </div>
-
+  <!-- ===================== PAGE VINS ===================== -->
+  <section class="section-page" id="tab-vins">
     <h2 class="page-title">Nos Vins</h2>
 
-    <div class="columns">
-      <div class="column">
-
-        <div class="section">
-          <h3 class="section-title">Vins au Verre</h3>
-          <div class="item">
-            <span class="item-name">Verre de vin (Pays d'Oc)</span>
-            <span class="item-price">4,00 €</span>
-          </div>
-          <div class="item-desc">Rouge, blanc ou rosé</div>
-          <div class="item">
-            <span class="item-name">1/4 Pays d'Oc</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">1/2 Pays d'Oc</span>
-            <span class="item-price">9,00 €</span>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3 class="section-title">Vins Rouges (75cl)</h3>
-          <div class="item">
-            <span class="item-name">Côtes du Rhône</span>
-            <span class="item-price">22,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Saint Émilion</span>
-            <span class="item-price">25,00 €</span>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3 class="section-title">Vins Blancs (75cl)</h3>
-          <div class="item">
-            <span class="item-name">Chardonnay</span>
-            <span class="item-price">20,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Puits d'Amour (sucré)</span>
-            <span class="item-price">20,00 €</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="column">
-
-        <div class="section">
-          <h3 class="section-title">Vin Rosé (75cl)</h3>
-          <div class="item">
-            <span class="item-name">Rosé Pays d'Oc</span>
-            <span class="item-price">18,00 €</span>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3 class="section-title">Bulles & Champagne</h3>
-          <div class="item">
-            <span class="item-name">Martini Bellini (bouteille)</span>
-            <span class="item-price">32,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Cava (bouteille)</span>
-            <span class="item-price">40,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Champagne (bouteille)</span>
-            <span class="item-price">60,00 €</span>
-          </div>
-        </div>
-
-      </div>
+    <div class="category">
+      <div class="category-title">Vins au Verre</div>
+      <div class="item"><div class="item-left"><span class="item-name">Verre de vin (Pays d'Oc)</span><p class="item-desc">Rouge, blanc ou rosé</p></div><span class="item-price">4,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">¼ Pays d'Oc</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">½ Pays d'Oc</span></div><span class="item-price">9,00 €</span></div>
     </div>
 
-    <div class="footer">
-      <strong>La Maison du Canal</strong> &bull; Rue du Canal 6, 7730 Leers-Nord
-      <p class="legal-mention">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
-    </div>
-  </div>
-
-  <!-- PAGE 4: RESTAURATION -->
-  <div class="page">
-    <div class="header">
-      <img src="/assets/logo-blanc.png" alt="La Maison du Canal">
-      <p class="tagline">Estaminet - Brasserie - Terrasse</p>
+    <div class="category">
+      <div class="category-title">Vins Rouges (75cl)</div>
+      <div class="item"><div class="item-left"><span class="item-name">Côtes du Rhône</span></div><span class="item-price">22,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Saint Émilion</span></div><span class="item-price">25,00 €</span></div>
     </div>
 
+    <div class="category">
+      <div class="category-title">Vins Blancs (75cl)</div>
+      <div class="item"><div class="item-left"><span class="item-name">Chardonnay</span></div><span class="item-price">20,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Puits d'Amour</span><p class="item-desc">Sucré</p></div><span class="item-price">20,00 €</span></div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Vin Rosé (75cl)</div>
+      <div class="item"><div class="item-left"><span class="item-name">Rosé Pays d'Oc</span></div><span class="item-price">18,00 €</span></div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Bulles &amp; Champagne</div>
+      <div class="item"><div class="item-left"><span class="item-name">Martini Bellini (bouteille)</span></div><span class="item-price">32,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Cava (bouteille)</span></div><span class="item-price">40,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Champagne (bouteille)</span></div><span class="item-price">60,00 €</span></div>
+    </div>
+
+  </section>
+
+  <!-- ===================== PAGE RESTAURATION ===================== -->
+  <section class="section-page" id="tab-restauration">
     <h2 class="page-title">Restauration</h2>
+    <p class="page-hours">Tous les jours 12h–14h &bull; Jeudi, vendredi, samedi 19h–21h</p>
 
-    <!-- Plats Principaux - Pleine largeur avec tableau -->
-    <div class="section-full">
-      <h3 class="section-title">Plats Principaux</h3>
-      <p class="item-desc" style="margin-bottom: 2mm; font-style: normal; color: var(--gold-dark);">Servis avec frites et crudités</p>
-      <table class="full-table">
-        <tbody>
-          <tr class="favorite">
-            <td>Pavé de boeuf (250gr)</td>
-            <td class="price" style="text-align: right;">22,00 €</td>
-          </tr>
-          <tr class="favorite-spacer"><td colspan="2"></td></tr>
-          <tr>
-            <td colspan="2" style="font-size: 7pt; color: var(--text-light); font-style: italic; padding-left: 4mm; border: none;">Sauce au choix : maroilles, champignons, poivre ou béarnaise</td>
-          </tr>
-          <tr>
-            <td>Filet américain</td>
-            <td class="price" style="text-align: right;">18,00 €</td>
-          </tr>
-          <tr>
-            <td>Tartare de boeuf</td>
-            <td class="price" style="text-align: right;">18,00 €</td>
-          </tr>
-          <tr>
-            <td>Croquettes fromages (3 pièces)</td>
-            <td class="price" style="text-align: right;">16,00 €</td>
-          </tr>
-          <tr>
-            <td>Croquettes crevettes (3 pièces)</td>
-            <td class="price" style="text-align: right;">18,00 €</td>
-          </tr>
-          <tr>
-            <td>Carpaccio de boeuf</td>
-            <td class="price" style="text-align: right;">16,00 €</td>
-          </tr>
-          <tr>
-            <td>Croque-monsieur</td>
-            <td class="price" style="text-align: right;">12,00 €</td>
-          </tr>
-          <tr>
-            <td>Tartare de saumon</td>
-            <td class="price" style="text-align: right;">20,00 €</td>
-          </tr>
-          <tr>
-            <td colspan="2" style="font-size: 7pt; color: var(--text-light); font-style: italic; padding-left: 4mm; border: none;">Servi avec pâtes au pesto vert</td>
-          </tr>
-          <tr style="font-style: italic; color: var(--text-light); font-size: 8pt;">
-            <td>Supplément sauce</td>
-            <td class="price" style="text-align: right; color: var(--text-light); font-weight: normal;">+ 2,50 €</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="category">
+      <div class="category-title">Entrées</div>
+      <div class="item"><div class="item-left"><span class="item-name">Oeufs mimosa</span></div><span class="item-price">4,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Tartare de saumon</span></div><span class="item-price">10,00 €</span></div>
     </div>
 
-    <div class="columns">
-      <div class="column">
-
-        <div class="section">
-          <h3 class="section-title">Planches Apéritives</h3>
-          <div class="item item-favorite">
-            <span class="item-name">Grande planche mixte</span>
-            <span class="item-price">18,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Petite planche mixte</span>
-            <span class="item-price">14,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Planche fromage</span>
-            <span class="item-price">12,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Planche charcuterie</span>
-            <span class="item-price">11,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Saucisson sec (nature ou noisette)</span>
-            <span class="item-price">6,50 €</span>
-          </div>
-          <div class="item supplement">
-            <span class="item-name">Supplément pain</span>
-            <span class="item-price">+ 1,00 €</span>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3 class="section-title">Menu Enfant</h3>
-          <div class="item">
-            <span class="item-name">Menu complet</span>
-            <span class="item-price">9,90 €</span>
-          </div>
-          <div class="item-desc" style="font-style: normal; font-size: 8pt;">Au choix : Jambon &bull; Nuggets &bull; Filet américain &bull; Steak haché</div>
-          <div class="item-desc" style="font-style: normal;">Servi avec frites et crudités</div>
-          <div class="item-desc" style="font-style: normal;">Une boule de glace au choix</div>
-        </div>
-
-      </div>
-
-      <div class="column">
-
-        <div class="section">
-          <h3 class="section-title">Tapas & Snacks</h3>
-          <div class="item">
-            <span class="item-name">Mozzarella Fingers (6 pièces)</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Calamars frits (6 pièces)</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Tempura de crevettes (6 pièces)</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Wings (5 pièces)</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Tenders (5 pièces)</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Trio de tapas au choix</span>
-            <span class="item-price">16,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Chips</span>
-            <span class="item-price">1,50 €</span>
-          </div>
-          <div class="item supplement">
-            <span class="item-name">Supplément frites</span>
-            <span class="item-price">+ 2,50 €</span>
-          </div>
-          <div class="item supplement">
-            <span class="item-name">Supplément pain</span>
-            <span class="item-price">+ 1,00 €</span>
-          </div>
-        </div>
-
-      </div>
+    <div class="category">
+      <div class="category-title">Plats Principaux</div>
+      <div class="item favorite"><div class="item-left"><span class="item-name">Burger du Canal</span><p class="item-desc">Steak 180g, cheddar coulant, tomates, pickles concombre maison, oignons frais &amp; frits, sauce secrète maison</p><p class="item-desc">Option double steak + 3,00 €</p></div><span class="item-price">18,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Pavé de boeuf (250gr)</span><p class="item-desc">Sauce maison au choix : maroilles, champignons, poivre, béarnaise, café de paris ou mayonnaise</p></div><span class="item-price">22,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Filet américain</span></div><span class="item-price">18,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Tartare de boeuf</span></div><span class="item-price">18,00 €</span></div>
+      <div class="item favorite"><div class="item-left"><span class="item-name">Pâtes forestière</span></div><span class="item-price">16,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Rigatoni au pesto de légumes <span class="veggie-badge">Végé</span></span><p class="item-desc">Aubergines, courgettes, parmesan, poivrons</p></div><span class="item-price">16,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Poisson du jour (selon arrivage)</span></div><span class="item-price">22,00 €</span></div>
     </div>
 
-    <!-- Encart suggestions pleine largeur -->
+    <div class="accomp-box">
+      <div class="accomp-title">Servi avec accompagnement au choix et crudités</div>
+      <div class="accomp-items">Frites maison &bull; Croquette de pomme de terre &bull; Riz &bull; Pâtes</div>
+      <div class="accomp-note">* Accompagnement en supplément + 2,50 €</div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Menu Enfant</div>
+      <div class="item"><div class="item-left"><span class="item-name">Menu complet</span><p class="item-desc">Au choix : Jambon &bull; Nuggets &bull; Filet américain &bull; Steak haché</p><p class="item-desc">Servi avec frites et crudités &bull; Une boule de glace au choix</p></div><span class="item-price">9,90 €</span></div>
+    </div>
+
     <div class="suggestions-box">
       <p class="suggestions-title">Suggestions du jour</p>
       <p class="suggestions-text">Consultez notre tableau pour découvrir les plats du moment</p>
     </div>
+  </section>
 
-    <div class="footer">
-      <strong>La Maison du Canal</strong> &bull; Rue du Canal 6, 7730 Leers-Nord
+  <!-- ===================== PAGE PLANCHES & TAPAS ===================== -->
+  <section class="section-page" id="tab-planches">
+    <h2 class="page-title">Planches &amp; Tapas</h2>
+    <p class="page-hours">Tous les jours à partir de 17h</p>
+
+    <div class="category">
+      <div class="category-title">Planches Apéritives</div>
+      <div class="item favorite"><div class="item-left"><span class="item-name">Grande planche mixte</span></div><span class="item-price">18,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Petite planche mixte</span></div><span class="item-price">14,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Planche fromage</span></div><span class="item-price">12,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Planche charcuterie</span></div><span class="item-price">11,00 €</span></div>
+      <div class="item supplement"><div class="item-left"><span class="item-name">Supplément pain</span></div><span class="item-price">+ 1,00 €</span></div>
     </div>
-  </div>
 
-  <!-- PAGE 5: DESSERTS -->
-  <div class="page">
-    <div class="header">
-      <img src="/assets/logo-blanc.png" alt="La Maison du Canal">
-      <p class="tagline">Estaminet - Brasserie - Terrasse</p>
+    <div class="category">
+      <div class="category-title">Tapas &amp; Snacks</div>
+      <div class="item"><div class="item-left"><span class="item-name">Chips</span></div><span class="item-price">1,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Frites maison</span></div><span class="item-price">4,00 €</span></div>
+      <div class="item supplement"><div class="item-left"><span class="item-name">Supplément sauce maison cheddar ou maroilles</span></div><span class="item-price">+ 2,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Mozzarella Fingers (6 pièces)</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Calamars frits (6 pièces)</span></div><span class="item-price">5,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Tempura de crevettes (6 pièces)</span></div><span class="item-price">6,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Saucisson sec (nature ou noisette)</span></div><span class="item-price">6,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Wings (5 pièces)</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Tenders (5 pièces)</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item favorite"><div class="item-left"><span class="item-name">Trio de tapas au choix</span></div><span class="item-price">16,00 €</span></div>
     </div>
+  </section>
 
+  <!-- ===================== PAGE DESSERTS ===================== -->
+  <section class="section-page" id="tab-desserts">
     <h2 class="page-title">Nos Desserts</h2>
 
-    <div class="columns">
-      <div class="column">
-
-        <div class="section">
-          <h3 class="section-title">Coupes Glacées</h3>
-          <div class="item item-favorite">
-            <span class="item-name">Dame blanche</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Dame noire</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Brésilienne</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Pistachio</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item-desc">Pistache, chocolat, vanille</div>
-          <div class="item">
-            <span class="item-name">Colonel</span>
-            <span class="item-price">8,00 €</span>
-          </div>
-          <div class="item-desc">Sorbet citron & vodka</div>
-          <div class="item">
-            <span class="item-name">Café liégeois</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Nougat glacé</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3 class="section-title">Desserts</h3>
-          <div class="item">
-            <span class="item-name">Tarte de saison</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Mi-cuit au chocolat</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="column">
-
-        <div class="section">
-          <h3 class="section-title">Crêpes</h3>
-          <div class="item">
-            <span class="item-name">Sucre</span>
-            <span class="item-price">4,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Confiture</span>
-            <span class="item-price">5,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Nutella ou Spéculoos</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3 class="section-title">Gaufres Liégeoises</h3>
-          <div class="item">
-            <span class="item-name">Nature</span>
-            <span class="item-price">3,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Sucre glace</span>
-            <span class="item-price">3,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Chantilly</span>
-            <span class="item-price">4,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Chocolat ou Spéculoos</span>
-            <span class="item-price">6,00 €</span>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3 class="section-title">Cafés Gourmands</h3>
-          <div class="item">
-            <span class="item-name">Café gourmand</span>
-            <span class="item-price">9,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Thé gourmand</span>
-            <span class="item-price">9,50 €</span>
-          </div>
-          <div class="item item-favorite">
-            <span class="item-name">Irish gourmand</span>
-            <span class="item-price">14,00 €</span>
-          </div>
-        </div>
-
-      </div>
+    <div class="category">
+      <div class="category-title">Coupes Glacées</div>
+      <div class="item favorite"><div class="item-left"><span class="item-name">Dame blanche</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Dame noire</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Brésilienne</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Pistachio</span><p class="item-desc">Pistache, chocolat, vanille</p></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Colonel</span><p class="item-desc">Sorbet citron &amp; vodka</p></div><span class="item-price">8,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Café liégeois</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Nougat glacé</span></div><span class="item-price">6,00 €</span></div>
     </div>
 
-    <div class="footer">
-      <strong>La Maison du Canal</strong> &bull; Rue du Canal 6, 7730 Leers-Nord
-      <p class="legal-mention">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
-    </div>
-  </div>
-
-  <!-- PAGE 6: BOISSONS CHAUDES & DIGESTIFS -->
-  <div class="page">
-    <div class="header">
-      <img src="/assets/logo-blanc.png" alt="La Maison du Canal">
-      <p class="tagline">Estaminet - Brasserie - Terrasse</p>
+    <div class="category">
+      <div class="category-title">Desserts</div>
+      <div class="item"><div class="item-left"><span class="item-name">Tarte maison</span></div><span class="item-price">7,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Baba au Rhum</span></div><span class="item-price">8,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Crème brûlée maison</span></div><span class="item-price">6,00 €</span></div>
+      <div class="item favorite"><div class="item-left"><span class="item-name">Tiramisu Napolitain maison</span></div><span class="item-price">8,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Brioche perdue caramel beurre salé</span></div><span class="item-price">8,00 €</span></div>
     </div>
 
-    <h2 class="page-title">Boissons Chaudes & Digestifs</h2>
-
-    <div class="columns">
-      <div class="column">
-
-        <div class="section">
-          <h3 class="section-title">Cafés</h3>
-          <div class="item">
-            <span class="item-name">Expresso / Décaféiné</span>
-            <span class="item-price">2,20 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Café allongé / Décaféiné</span>
-            <span class="item-price">2,70 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Grand café</span>
-            <span class="item-price">3,20 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Double expresso</span>
-            <span class="item-price">3,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Cappuccino</span>
-            <span class="item-price">3,50 €</span>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3 class="section-title">Boissons Chaudes</h3>
-          <div class="item">
-            <span class="item-name">Chocolat chaud</span>
-            <span class="item-price">3,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Chocolat viennois</span>
-            <span class="item-price">3,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Thé (menthe, citron, fruits rouges)</span>
-            <span class="item-price">2,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Soupe maison</span>
-            <span class="item-price">3,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Soupe Royco</span>
-            <span class="item-price">2,50 €</span>
-          </div>
-        </div>
-
-        <div class="section">
-          <h3 class="section-title">Cafés Spéciaux</h3>
-          <div class="item item-favorite">
-            <span class="item-name">Irish Coffee</span>
-            <span class="item-price">8,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Irish Coffee XL</span>
-            <span class="item-price">12,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Jamaïcan Coffee</span>
-            <span class="item-price">8,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">French Coffee</span>
-            <span class="item-price">8,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Baileys Coffee</span>
-            <span class="item-price">8,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Italian Coffee</span>
-            <span class="item-price">8,50 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Cointreau / Grand Marnier Coffee</span>
-            <span class="item-price">7,50 €</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="column">
-
-        <div class="section">
-          <h3 class="section-title">Digestifs</h3>
-          <div class="item">
-            <span class="item-name">Get 27 / Get 31</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Limoncello</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Baileys</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Amaretto</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Cointreau</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Eau de Villée</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Poire Williams</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Cognac</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Grand Marnier</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Calvados</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-          <div class="item">
-            <span class="item-name">Armagnac</span>
-            <span class="item-price">7,00 €</span>
-          </div>
-        </div>
-
-      </div>
+    <div class="category">
+      <div class="category-title">Crêpes <span style="font-weight:400;font-size:11px;opacity:.8;">jusqu'à 18h</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Sucre</span></div><span class="item-price">4,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Nutella</span></div><span class="item-price">4,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Mikado</span></div><span class="item-price">6,00 €</span></div>
+      <div class="item supplement"><div class="item-left"><span class="item-name">Supplément Chantilly</span></div><span class="item-price">+ 0,50 €</span></div>
     </div>
 
-    <div class="footer">
-      <strong>La Maison du Canal</strong> &bull; Rue du Canal 6, 7730 Leers-Nord
-      <p class="legal-mention">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
+    <div class="category">
+      <div class="category-title">Cafés Gourmands</div>
+      <div class="item"><div class="item-left"><span class="item-name">Café gourmand</span></div><span class="item-price">9,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Thé gourmand</span></div><span class="item-price">9,50 €</span></div>
+      <div class="item favorite"><div class="item-left"><span class="item-name">Irish gourmand</span></div><span class="item-price">14,00 €</span></div>
     </div>
-  </div>
+  </section>
+
+  <!-- ===================== PAGE BOISSONS CHAUDES & DIGESTIFS ===================== -->
+  <section class="section-page" id="tab-chauds">
+    <h2 class="page-title">Boissons Chaudes</h2>
+
+    <div class="category">
+      <div class="category-title">Cafés</div>
+      <div class="item"><div class="item-left"><span class="item-name">Expresso / Décaféiné</span></div><span class="item-price">2,20 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Café allongé / Décaféiné</span></div><span class="item-price">2,70 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Grand café</span></div><span class="item-price">3,20 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Double expresso</span></div><span class="item-price">3,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Cappuccino</span></div><span class="item-price">3,50 €</span></div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Boissons Chaudes</div>
+      <div class="item"><div class="item-left"><span class="item-name">Chocolat chaud</span></div><span class="item-price">3,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Chocolat viennois</span></div><span class="item-price">3,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Thé</span><p class="item-desc">Menthe, citron, fruits rouges</p></div><span class="item-price">2,50 €</span></div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Cafés Spéciaux</div>
+      <div class="item favorite"><div class="item-left"><span class="item-name">Irish Coffee</span></div><span class="item-price">8,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Irish Coffee XL</span></div><span class="item-price">12,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Jamaïcan Coffee</span></div><span class="item-price">8,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">French Coffee</span></div><span class="item-price">8,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Baileys Coffee</span></div><span class="item-price">8,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Italian Coffee</span></div><span class="item-price">8,50 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Cointreau / Grand Marnier Coffee</span></div><span class="item-price">7,50 €</span></div>
+    </div>
+
+
+  </section>
+
+  <script>
+    function showTab(id, btn) {
+      document.querySelectorAll('.section-page').forEach(function(s) {
+        s.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-tabs button').forEach(function(b) {
+        b.classList.remove('active');
+      });
+      document.getElementById('tab-' + id).classList.add('active');
+      btn.classList.add('active');
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
 
 </body>
 </html>
