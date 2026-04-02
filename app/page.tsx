@@ -49,7 +49,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-base text-white/90 max-w-xl mx-auto mb-8 drop-shadow"
           >
-            Au bord de l'eau, entre Belgique et France, une ancienne maison éclusière
+            Au bord du canal de l'Espierre, dans la commune d'Estaimpuis — une ancienne maison éclusière
             où l'on prend le temps de vivre.
           </motion.p>
 
@@ -65,6 +65,9 @@ export default function Home() {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
               Réserver
             </motion.a>
             <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
@@ -94,7 +97,7 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <ScrollReveal direction="right">
                 <h2 className="text-3xl md:text-4xl font-bold text-canal-navy mb-6">
-                  L'esprit du lieu
+                  L'esprit du lieu à Leers-Nord
                 </h2>
                 <div className="space-y-4 text-canal-charcoal/80 leading-relaxed">
                   <p>
@@ -110,14 +113,11 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div className="mt-8 flex gap-8">
+                <div className="mt-8 flex items-center gap-4 bg-white rounded-2xl px-5 py-4 border border-canal-sand/40" style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_6px_2px_rgba(34,197,94,0.4)] shrink-0" />
                   <div>
-                    <p className="font-bold text-canal-navy">Ouvert</p>
-                    <p className="text-sm text-canal-slate">Tous les jours</p>
-                  </div>
-                  <div>
-                    <p className="font-bold text-canal-navy">11h - 21h</p>
-                    <p className="text-sm text-canal-slate">Sans réservation possible</p>
+                    <p className="font-bold text-canal-navy text-sm">Ouvert tous les jours</p>
+                    <p className="text-canal-slate text-sm">11h – 21h · Sans réservation obligatoire</p>
                   </div>
                 </div>
               </ScrollReveal>
@@ -171,11 +171,13 @@ export default function Home() {
             <div className="space-y-4 text-white/80">
               <p>
                 Le canal trace la frontière, mais à La Maison du Canal, on l'efface naturellement.
-                Nos clients viennent de Tournai, Mouscron, Estaimpuis, mais aussi de Lille, Roubaix ou Tourcoing.
+                Nos clients viennent de Tournai, Mouscron, Estaimpuis, Templeuve, Pecq,
+                mais aussi de Roubaix, Tourcoing, Wattrelos, Lannoy ou Toufflers.
               </p>
               <p>
-                On parle français des deux côtés, on partage les mêmes plaisirs simples :
-                une bonne table, une bière artisanale, le plaisir d'être ensemble.
+                À 15 minutes de Tournai, 20 minutes de Roubaix — on parle français des deux côtés,
+                on partage les mêmes plaisirs simples : une bonne table, une bière artisanale,
+                le plaisir d'être ensemble au bord de l'eau.
               </p>
             </div>
           </ScrollReveal>
@@ -193,17 +195,32 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {[
-              { title: "Restauration", desc: "Cuisine de brasserie généreuse. Planches, viandes, plats du jour.", delay: 0 },
-              { title: "Boissons", desc: "Large choix de bières belges, vins et softs.", delay: 0.1 },
-              { title: "Terrasse", desc: "Vue sur le canal, ambiance apaisante.", delay: 0.2 }
+              { title: "Restauration", desc: "Cuisine de brasserie généreuse. Planches, viandes, plats du jour.", delay: 0, href: "/carte.pdf", external: true, cta: "Voir la carte" },
+              { title: "Boissons", desc: "Large choix de bières belges, vins et softs.", delay: 0.1, href: null, cta: null },
+              { title: "Terrasse & Nature", desc: "Vue sur le canal, activités nautiques, balade RAVeL.", delay: 0.2, href: "/activites", external: false, cta: "Découvrir" }
             ].map((item, idx) => (
               <ScrollReveal key={idx} delay={item.delay}>
                 <motion.div
                   whileHover={{ y: -8, scale: 1.02 }}
-                  className="bg-white rounded-2xl p-6 text-center card-simple"
+                  className="bg-white rounded-2xl p-6 text-center card-simple flex flex-col"
                 >
                   <h3 className="text-xl font-bold text-canal-navy mb-3">{item.title}</h3>
-                  <p className="text-canal-charcoal/70 text-sm">{item.desc}</p>
+                  <p className="text-canal-charcoal/70 text-sm flex-1">{item.desc}</p>
+                  {item.href && item.cta && (
+                    <div className="mt-4">
+                      {item.external ? (
+                        <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-canal-gold text-sm font-semibold hover:text-canal-gold-dark transition-colors inline-flex items-center gap-1">
+                          {item.cta}
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                        </a>
+                      ) : (
+                        <Link href={item.href} className="text-canal-gold text-sm font-semibold hover:text-canal-gold-dark transition-colors inline-flex items-center gap-1">
+                          {item.cta}
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                        </Link>
+                      )}
+                    </div>
+                  )}
                 </motion.div>
               </ScrollReveal>
             ))}
@@ -286,6 +303,9 @@ export default function Home() {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
                 056 91 42 85
               </motion.a>
               <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>

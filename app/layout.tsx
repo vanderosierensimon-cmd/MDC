@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: '%s | La Maison du Canal'
   },
   description: 'Restaurant au bord du canal de l\'Espierre à Leers-Nord (Estaimpuis). Cuisine généreuse, ambiance chaleureuse, terrasse apaisante. Entre Belgique et France, une table qui rassemble.',
-  keywords: ['restaurant Leers-Nord', 'restaurant Estaimpuis', 'restaurant canal Espierre', 'restaurant Tournai', 'restaurant Mouscron', 'estaminet', 'terrasse canal', 'Canal Plage', 'restaurant frontière belge', 'brasserie belgique'],
+  keywords: ['restaurant Leers-Nord', 'restaurant Estaimpuis', 'restaurant canal Espierre', 'restaurant Tournai', 'restaurant Mouscron', 'restaurant Roubaix côté belge', 'restaurant Tourcoing frontière', 'estaminet Hainaut', 'terrasse canal bord de l\'eau', 'Canal Plage Estaimpuis', 'restaurant frontière franco-belge', 'brasserie Hainaut', 'RAVeL restaurant vélo', 'restaurant Templeuve', 'restaurant Pecq Hainaut'],
   authors: [{ name: 'La Maison du Canal' }],
   openGraph: {
     type: 'website',
@@ -49,6 +49,42 @@ export const metadata: Metadata = {
   },
 }
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  name: 'La Maison du Canal',
+  description: 'Restaurant au bord du canal de l\'Espierre à Leers-Nord. Cuisine généreuse, bières belges, terrasse apaisante. Entre Belgique et France.',
+  url: 'https://lamaisonducanal.be',
+  telephone: '+3256914285',
+  servesCuisine: ['Belge', 'Brasserie'],
+  priceRange: '€€',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Rue du Canal 6',
+    addressLocality: 'Leers-Nord',
+    postalCode: '7730',
+    addressRegion: 'Hainaut',
+    addressCountry: 'BE',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 50.7167,
+    longitude: 3.2833,
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+    opens: '11:00',
+    closes: '21:00',
+  },
+  hasMap: 'https://maps.google.com/?q=Rue+du+Canal+6,+7730+Leers-Nord',
+  image: 'https://lamaisonducanal.be/images/photos/facade.jpg',
+  sameAs: [
+    'https://www.facebook.com/lamaisonducanalbelgique',
+    'https://www.instagram.com/lamaisonducanal',
+  ],
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -60,6 +96,10 @@ export default function RootLayout({
         {/* Preconnect pour les polices Google */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body className="min-h-screen flex flex-col">
         <Script
@@ -79,6 +119,20 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+
+        {/* Barre d'appel sticky mobile */}
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 p-3 bg-white/90 backdrop-blur-md border-t border-canal-sand/50 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+          <a
+            href="tel:+3256914285"
+            className="btn-primary w-full justify-center text-sm py-3"
+            aria-label="Appeler La Maison du Canal : 056 91 42 85"
+          >
+            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Appeler · 056 91 42 85
+          </a>
+        </div>
       </body>
     </html>
   )

@@ -5,7 +5,7 @@ import ReviewsCarousel from '@/components/ReviewsCarousel'
 
 export const metadata: Metadata = {
   title: 'Notre Histoire',
-  description: 'Découvrez l\'histoire de La Maison du Canal, ancienne maison éclusière devenue restaurant en 2008, au bord du canal de l\'Espierre à Leers-Nord.',
+  description: 'Découvrez l\'histoire de La Maison du Canal, ancienne maison éclusière devenue restaurant en 2008, au bord du canal de l\'Espierre à Leers-Nord, dans la commune d\'Estaimpuis en province de Hainaut.',
   openGraph: {
     title: 'Notre Histoire | La Maison du Canal',
     description: 'D\'une maison éclusière à un restaurant convivial au bord du canal',
@@ -51,12 +51,14 @@ export default function HistoirePage() {
 
               <p>
                 Cette maison a une histoire. Celle de ces bâtiments témoins du temps où le canal
-                était une artère vitale entre la Belgique et la France. Ici vivaient les éclusiers,
-                gardiens du passage des péniches et du bon écoulement de l'eau.
+                était une artère vitale entre la Belgique et la France. Ici, à Leers-Nord dans la
+                commune d'Estaimpuis, vivaient les éclusiers — gardiens du passage des péniches
+                et du bon écoulement de l'eau.
               </p>
 
               <p>
                 Le canal de l'Espierre reliait deux pays, deux économies.
+                Il longe encore aujourd'hui la frontière franco-belge, entre Hainaut et Nord-Pas-de-Calais.
                 Les péniches transportaient marchandises et espoir. Les éclusiers veillaient au grain,
                 jour et nuit, dans cette maison qui est aujourd'hui la nôtre.
               </p>
@@ -81,9 +83,11 @@ export default function HistoirePage() {
 
               <p>
                 La Maison du Canal est devenue un repère pour les habitants de la région.
-                Un lieu où l'on aime revenir, où l'on célèbre les moments simples de la vie.
+                Les familles d'Estaimpuis, de Tournai et de Mouscron, les cyclistes qui empruntent
+                le RAVeL, les promeneurs venus de Roubaix ou de Tourcoing — tous trouvent ici
+                un lieu où l'on aime revenir, où l'on célèbre les moments simples de la vie.
                 Le canal coule toujours au même rythme, et nous continuons d'accueillir ceux
-                qui cherchent un moment de pause et de partage.
+                qui cherchent un moment de pause et de partage en province de Hainaut.
               </p>
             </div>
           </div>

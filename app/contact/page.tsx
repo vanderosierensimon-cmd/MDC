@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import ReviewsCarousel from '@/components/ReviewsCarousel'
 import FAQAccordion from '@/components/FAQAccordion'
 
@@ -32,13 +33,27 @@ const faq = [
     question: "Acceptez-vous les groupes ?",
     answer: "Oui, nous accueillons les groupes avec plaisir. Contactez-nous par téléphone pour organiser votre réservation."
   },
+  {
+    question: "Êtes-vous facilement accessibles depuis la France ?",
+    answer: "Oui ! Nous sommes situés à la frontière franco-belge, à environ 20 minutes de Roubaix et Tourcoing, et 30 minutes de Lille. Depuis la France, composez le +32 56 91 42 85. Le parking est gratuit."
+  },
 ]
 
 export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-[40vh] min-h-[300px] flex items-center justify-center bg-canal-navy">
+      <section className="relative h-[40vh] min-h-[300px] flex items-center justify-center">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/photos/facade.jpg"
+            alt="La Maison du Canal à Leers-Nord"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-canal-navy/70" />
+        </div>
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-canal-cream to-transparent" />
 
         <div className="relative z-10 text-center text-white px-4">
@@ -46,7 +61,7 @@ export default function ContactPage() {
             Nous trouver
           </h1>
           <p className="text-lg text-white/80">
-            Au bord du canal, entre Belgique et France
+            Rue du Canal 6 · 7730 Leers-Nord · Estaimpuis
           </p>
         </div>
       </section>
@@ -124,8 +139,13 @@ export default function ContactPage() {
                     <h3 className="font-bold text-canal-navy mb-2">En voiture</h3>
                     <p className="text-canal-charcoal/70 text-sm">
                       Parking gratuit à proximité immédiate du restaurant.
-                      Accès facile depuis Tournai, Mouscron, Lille et Roubaix.
                     </p>
+                    <ul className="text-canal-charcoal/70 text-sm mt-2 space-y-1">
+                      <li>Tournai — <span className="font-medium">~15 min</span></li>
+                      <li>Mouscron — <span className="font-medium">~10 min</span></li>
+                      <li>Roubaix / Tourcoing — <span className="font-medium">~20 min</span></li>
+                      <li>Lille — <span className="font-medium">~30 min</span></li>
+                    </ul>
                   </div>
 
                   <div className="bg-white rounded-xl p-5">

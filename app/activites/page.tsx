@@ -5,7 +5,7 @@ import ReviewsCarousel from '@/components/ReviewsCarousel'
 
 export const metadata: Metadata = {
   title: 'Activités',
-  description: 'Activités autour de La Maison du Canal : Canal Plage, pédalos, kayaks, balades à vélo sur le RAVeL, promenades nature le long du canal de l\'Espierre.',
+  description: 'Activités autour de La Maison du Canal à Estaimpuis : Canal Plage, pédalos, kayaks, balades à vélo sur le RAVeL entre Tournai et Roubaix, promenades nature le long du canal de l\'Espierre en Hainaut.',
   openGraph: {
     title: 'Activités | La Maison du Canal',
     description: 'Canal Plage, balades à vélo, promenades nature au bord du canal de l\'Espierre',
@@ -45,8 +45,9 @@ export default function ActivitesPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-canal-charcoal/80">
-              Situé au bord du canal de l'Espierre, notre restaurant est le point de départ
-              idéal pour profiter de la nature et des activités de plein air.
+              Situé au bord du canal de l'Espierre à Leers-Nord (commune d'Estaimpuis),
+              notre restaurant est le point de départ idéal pour profiter de la nature
+              et des activités de plein air — à la croisée du Hainaut belge et du Nord français.
             </p>
           </div>
         </div>
@@ -116,20 +117,23 @@ export default function ActivitesPage() {
                 </h2>
                 <div className="space-y-4 text-canal-charcoal/80 leading-relaxed">
                   <p>
-                    Le chemin de halage qui longe le canal est parfait pour une promenade à pied
-                    ou une sortie à vélo. Les itinéraires RAVeL passent devant notre porte.
+                    Le chemin de halage qui longe le canal de l'Espierre est parfait pour une promenade à pied
+                    ou une sortie à vélo. Les itinéraires RAVeL (réseau autonome de voies lentes de Wallonie)
+                    passent devant notre porte — idéal pour relier Tournai à Mouscron ou rejoindre
+                    la frontière française vers Roubaix et Tourcoing.
                   </p>
                   <p>
                     La nature est généreuse ici : observez les oiseaux, respirez l'air pur,
-                    laissez-vous porter par le calme de l'eau.
+                    laissez-vous porter par le calme de l'eau en plein cœur du Hainaut.
                   </p>
 
                   <div className="bg-white rounded-xl p-5 mt-6">
                     <h3 className="font-bold text-canal-navy mb-3">À découvrir :</h3>
                     <ul className="space-y-2 text-sm">
-                      <li>Itinéraires cyclables RAVeL balisés</li>
-                      <li>Promenades familiales le long de l'eau</li>
+                      <li>Itinéraires cyclables RAVeL balisés (Tournai ↔ Mouscron)</li>
+                      <li>Promenades familiales le long du canal de l'Espierre</li>
                       <li>Observation de la faune et de la flore</li>
+                      <li>Accès direct depuis Roubaix/Tourcoing via la frontière</li>
                     </ul>
                   </div>
                 </div>
