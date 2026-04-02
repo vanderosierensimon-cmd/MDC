@@ -141,10 +141,10 @@ export default function ContactPage() {
                       Parking gratuit à proximité immédiate du restaurant.
                     </p>
                     <ul className="text-canal-charcoal/70 text-sm mt-2 space-y-1">
-                      <li>Tournai — <span className="font-medium">~15 min</span></li>
-                      <li>Mouscron — <span className="font-medium">~10 min</span></li>
-                      <li>Roubaix / Tourcoing — <span className="font-medium">~20 min</span></li>
-                      <li>Lille — <span className="font-medium">~30 min</span></li>
+                      <li>Tournai · <span className="font-medium">~15 min</span></li>
+                      <li>Mouscron · <span className="font-medium">~10 min</span></li>
+                      <li>Roubaix / Tourcoing · <span className="font-medium">~20 min</span></li>
+                      <li>Lille · <span className="font-medium">~30 min</span></li>
                     </ul>
                   </div>
 

@@ -49,7 +49,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-base text-white/90 max-w-xl mx-auto mb-8 drop-shadow"
           >
-            Au bord du canal de l'Espierre, dans la commune d'Estaimpuis — une ancienne maison éclusière
+            Au bord du canal de l'Espierre, dans la commune d'Estaimpuis, une ancienne maison éclusière
             où l'on prend le temps de vivre.
           </motion.p>
 
@@ -175,7 +175,7 @@ export default function Home() {
                 mais aussi de Roubaix, Tourcoing, Wattrelos, Lannoy ou Toufflers.
               </p>
               <p>
-                À 15 minutes de Tournai, 20 minutes de Roubaix — on parle français des deux côtés,
+                À 15 minutes de Tournai, 20 minutes de Roubaix. On parle français des deux côtés,
                 on partage les mêmes plaisirs simples : une bonne table, une bière artisanale,
                 le plaisir d'être ensemble au bord de l'eau.
               </p>

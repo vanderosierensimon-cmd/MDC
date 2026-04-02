@@ -47,7 +47,7 @@ export default function ActivitesPage() {
             <p className="text-lg text-canal-charcoal/80">
               Situé au bord du canal de l'Espierre à Leers-Nord (commune d'Estaimpuis),
               notre restaurant est le point de départ idéal pour profiter de la nature
-              et des activités de plein air — à la croisée du Hainaut belge et du Nord français.
+              et des activités de plein air, à la croisée du Hainaut belge et du Nord français.
             </p>
           </div>
         </div>
@@ -119,7 +119,7 @@ export default function ActivitesPage() {
                   <p>
                     Le chemin de halage qui longe le canal de l'Espierre est parfait pour une promenade à pied
                     ou une sortie à vélo. Les itinéraires RAVeL (réseau autonome de voies lentes de Wallonie)
-                    passent devant notre porte — idéal pour relier Tournai à Mouscron ou rejoindre
+                    passent devant notre porte, idéal pour relier Tournai à Mouscron ou rejoindre
                     la frontière française vers Roubaix et Tourcoing.
                   </p>
                   <p>

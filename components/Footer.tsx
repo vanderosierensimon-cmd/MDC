@@ -74,7 +74,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-white/10 text-center text-white/40 text-xs">
-          © {currentYear} La Maison du Canal — Tous droits réservés
+          © {currentYear} La Maison du Canal · Tous droits réservés
         </div>
       </div>
     </footer>

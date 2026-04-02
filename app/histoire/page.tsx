@@ -52,7 +52,7 @@ export default function HistoirePage() {
               <p>
                 Cette maison a une histoire. Celle de ces bâtiments témoins du temps où le canal
                 était une artère vitale entre la Belgique et la France. Ici, à Leers-Nord dans la
-                commune d'Estaimpuis, vivaient les éclusiers — gardiens du passage des péniches
+                commune d'Estaimpuis, vivaient les éclusiers, gardiens du passage des péniches
                 et du bon écoulement de l'eau.
               </p>
 
@@ -84,7 +84,7 @@ export default function HistoirePage() {
               <p>
                 La Maison du Canal est devenue un repère pour les habitants de la région.
                 Les familles d'Estaimpuis, de Tournai et de Mouscron, les cyclistes qui empruntent
-                le RAVeL, les promeneurs venus de Roubaix ou de Tourcoing — tous trouvent ici
+                le RAVeL, les promeneurs venus de Roubaix ou de Tourcoing : tous trouvent ici
                 un lieu où l'on aime revenir, où l'on célèbre les moments simples de la vie.
                 Le canal coule toujours au même rythme, et nous continuons d'accueillir ceux
                 qui cherchent un moment de pause et de partage en province de Hainaut.
