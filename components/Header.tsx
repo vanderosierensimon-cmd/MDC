@@ -43,7 +43,7 @@ export default function Header() {
 
   const navigation = [
     { name: 'Accueil', href: '/' },
-    { name: 'La Carte', href: '/carte.pdf', external: true },
+    { name: 'La Carte', href: '/carte' },
     { name: 'Notre Histoire', href: '/histoire' },
     { name: 'Activités', href: '/activites' },
     { name: 'Contact', href: '/contact' },
@@ -98,38 +98,23 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                 >
-                  {item.external ? (
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`relative text-sm font-medium transition-colors duration-300 focus-ring rounded px-2 py-1 ${
-                        isScrolled
-                          ? 'text-canal-navy hover:text-canal-gold'
-                          : 'text-white hover:text-canal-gold'
-                      }`}
-                    >
-                      {item.name}
-                    </a>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className={`relative text-sm font-medium transition-colors duration-300 focus-ring rounded px-2 py-1 ${
-                        isScrolled
-                          ? 'text-canal-navy hover:text-canal-gold'
-                          : 'text-white hover:text-canal-gold'
-                      } ${isActive(item.href) ? 'font-bold' : ''}`}
-                    >
-                      {item.name}
-                      {isActive(item.href) && (
-                        <motion.span
-                          layoutId="activeNav"
-                          className="absolute -bottom-1 left-0 right-0 h-0.5 bg-canal-gold rounded-full"
-                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                        />
-                      )}
-                    </Link>
-                  )}
+                  <Link
+                    href={item.href}
+                    className={`relative text-sm font-medium transition-colors duration-300 focus-ring rounded px-2 py-1 ${
+                      isScrolled
+                        ? 'text-canal-navy hover:text-canal-gold'
+                        : 'text-white hover:text-canal-gold'
+                    } ${isActive(item.href) ? 'font-bold' : ''}`}
+                  >
+                    {item.name}
+                    {isActive(item.href) && (
+                      <motion.span
+                        layoutId="activeNav"
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-canal-gold rounded-full"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </Link>
                 </motion.div>
               ))}
               <motion.a
@@ -231,27 +216,15 @@ export default function Header() {
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ delay: index * 0.1, duration: 0.4 }}
                   >
-                    {item.external ? (
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="text-white text-2xl font-semibold hover:text-canal-gold transition-colors focus-ring rounded-lg px-4 py-2"
-                      >
-                        {item.name}
-                      </a>
-                    ) : (
-                      <Link
-                        href={item.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className={`text-white text-2xl font-semibold hover:text-canal-gold transition-colors focus-ring rounded-lg px-4 py-2 ${
-                          isActive(item.href) ? 'text-canal-gold' : ''
-                        }`}
-                      >
-                        {item.name}
-                      </Link>
-                    )}
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`text-white text-2xl font-semibold hover:text-canal-gold transition-colors focus-ring rounded-lg px-4 py-2 ${
+                        isActive(item.href) ? 'text-canal-gold' : ''
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
                   </motion.div>
                 ))}
               </nav>

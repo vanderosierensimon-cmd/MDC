@@ -1,471 +1,437 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import './menu.css'
 
-type Tab = 'restauration' | 'boissons' | 'bieres' | 'vins' | 'desserts' | 'chauds'
-
-const tabs: { id: Tab; label: string; emoji: string }[] = [
-  { id: 'restauration', label: 'Restauration', emoji: '🍽️' },
-  { id: 'boissons', label: 'Boissons', emoji: '🥤' },
-  { id: 'bieres', label: 'Bières', emoji: '🍺' },
-  { id: 'vins', label: 'Vins', emoji: '🍷' },
-  { id: 'desserts', label: 'Desserts', emoji: '🍨' },
-  { id: 'chauds', label: 'Boissons Chaudes', emoji: '☕' },
+const TABS = [
+  { id: 'boissons',      label: 'Boissons' },
+  { id: 'bieres',        label: 'Bières' },
+  { id: 'vins',          label: 'Vins' },
+  { id: 'restauration',  label: 'Restauration' },
+  { id: 'planches',      label: 'Planches & Tapas' },
+  { id: 'desserts',      label: 'Desserts' },
+  { id: 'chauds',        label: 'Boissons Chaudes' },
 ]
 
-function SectionTitle({ children }: { children: React.ReactNode }) {
+function Item({
+  name, price, desc, note, fav, sup,
+}: {
+  name: React.ReactNode; price: string; desc?: string; note?: string; fav?: boolean; sup?: boolean
+}) {
+  const cls = ['item', fav && 'favorite', sup && 'supplement'].filter(Boolean).join(' ')
   return (
-    <div className="mb-4">
-      <h3 className="text-lg font-bold text-canal-navy uppercase tracking-wide">{children}</h3>
-      <div className="mt-1 h-0.5 w-10 bg-canal-gold rounded-full" />
+    <div className={cls}>
+      <div className="item-left">
+        <span className="item-name">{name}</span>
+        {desc && <span className="item-desc">{desc}</span>}
+        {note && <span className="item-note">{note}</span>}
+      </div>
+      <span className="item-price">{price}</span>
     </div>
   )
-}
-
-function SubTitle({ children }: { children: React.ReactNode }) {
-  return <h4 className="text-sm font-semibold text-canal-slate uppercase tracking-wider mt-5 mb-3">{children}</h4>
-}
-
-function Item({ name, price, desc, note }: { name: string; price: string; desc?: string; note?: string }) {
-  return (
-    <div className="py-2 border-b border-canal-sand/60 last:border-0">
-      <div className="flex items-baseline justify-between gap-4">
-        <span className="text-canal-charcoal text-sm leading-snug">{name}</span>
-        <span className="text-canal-gold font-semibold text-sm whitespace-nowrap flex-shrink-0">{price}</span>
-      </div>
-      {desc && <p className="text-xs text-canal-slate mt-0.5">{desc}</p>}
-      {note && <p className="text-xs italic text-canal-slate/80 mt-0.5">{note}</p>}
-    </div>
-  )
-}
-
-function Card({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return (
-    <div className={`bg-white rounded-2xl p-6 shadow-sm border border-canal-sand/40 ${className}`}>
-      {children}
-    </div>
-  )
-}
-
-function RestaurationType() {
-  return (
-    <div className="space-y-6">
-      <Card>
-        <SectionTitle>Plats Principaux</SectionTitle>
-        <p className="text-xs text-canal-slate mb-4 italic">Servis avec frites et crudités</p>
-        <div>
-          <div className="py-2 border-b border-canal-sand/60">
-            <div className="flex items-baseline justify-between gap-4">
-              <span className="text-canal-charcoal text-sm leading-snug">Pavé de boeuf (250gr)</span>
-              <span className="text-canal-gold font-semibold text-sm whitespace-nowrap">22,00 €</span>
-            </div>
-            <p className="text-xs text-canal-slate mt-0.5">Sauce au choix : maroilles, champignons, poivre ou béarnaise</p>
-          </div>
-          <Item name="Filet américain" price="18,00 €" />
-          <Item name="Tartare de boeuf" price="18,00 €" />
-          <Item name="Croquettes fromages (3 pièces)" price="16,00 €" />
-          <Item name="Croquettes crevettes (3 pièces)" price="18,00 €" />
-          <Item name="Carpaccio de boeuf" price="16,00 €" />
-          <Item name="Croque-monsieur" price="12,00 €" />
-          <div className="py-2 border-b border-canal-sand/60">
-            <div className="flex items-baseline justify-between gap-4">
-              <span className="text-canal-charcoal text-sm leading-snug">Tartare de saumon</span>
-              <span className="text-canal-gold font-semibold text-sm whitespace-nowrap">20,00 €</span>
-            </div>
-            <p className="text-xs text-canal-slate mt-0.5">Servi avec pâtes au pesto vert</p>
-          </div>
-          <Item name="Supplément sauce" price="+ 2,50 €" />
-        </div>
-      </Card>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card>
-          <SectionTitle>Planches Apéritives</SectionTitle>
-          <Item name="Grande planche mixte" price="18,00 €" />
-          <Item name="Petite planche mixte" price="14,00 €" />
-          <Item name="Planche fromage" price="12,00 €" />
-          <Item name="Planche charcuterie" price="11,00 €" />
-          <Item name="Saucisson sec (nature ou noisette)" price="6,50 €" />
-          <Item name="Supplément pain" price="+ 1,00 €" />
-        </Card>
-
-        <Card>
-          <SectionTitle>Tapas & Snacks</SectionTitle>
-          <Item name="Mozzarella Fingers (6 pièces)" price="5,00 €" />
-          <Item name="Calamars frits (6 pièces)" price="5,00 €" />
-          <Item name="Tempura de crevettes (6 pièces)" price="6,00 €" />
-          <Item name="Wings (5 pièces)" price="7,00 €" />
-          <Item name="Tenders (5 pièces)" price="7,00 €" />
-          <Item name="Trio de tapas au choix" price="16,00 €" />
-          <Item name="Chips" price="1,50 €" />
-          <Item name="Supplément frites" price="+ 2,50 €" />
-          <Item name="Supplément pain" price="+ 1,00 €" />
-        </Card>
-      </div>
-
-      <Card className="bg-canal-navy text-white border-0">
-        <SectionTitle>
-          <span className="text-white">Menu Enfant</span>
-        </SectionTitle>
-        <div className="flex items-baseline justify-between gap-4 mb-2">
-          <span className="text-white/90 text-sm font-semibold">Menu complet</span>
-          <span className="text-canal-gold font-bold text-base">9,90 €</span>
-        </div>
-        <p className="text-white/70 text-xs">Au choix : Jambon • Nuggets • Filet américain • Steak haché</p>
-        <p className="text-white/70 text-xs mt-1">Servi avec frites et crudités + une boule de glace au choix</p>
-      </Card>
-    </div>
-  )
-}
-
-function Boissons() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <Card>
-        <SectionTitle>Softs</SectionTitle>
-        <Item name="Jus de fruits (orange, ananas, pomme, pomme-cerise, abricot, pamplemousse)" price="2,80 €" />
-        <Item name="ACE (orange-tomate)" price="2,80 €" />
-        <Item name="Pepsi" price="2,80 €" />
-        <Item name="Pepsi Max" price="2,80 €" />
-        <Item name="Fanta" price="2,80 €" />
-        <Item name="Sprite" price="2,80 €" />
-        <Item name="Fuze Tea Pétillant" price="2,80 €" />
-        <Item name="Fuze Tea Pêche" price="2,80 €" />
-        <Item name="Tonissteiner Citron" price="2,80 €" />
-        <Item name="Bliss (Tonic, Agrumes, Pink, Lemon)" price="2,80 €" />
-        <Item name="Red Bull" price="3,00 €" />
-        <Item name="Supplément sirop" price="+ 0,50 €" />
-        <SubTitle>Eaux</SubTitle>
-        <Item name="Eau plate ou pétillante ¼" price="2,50 €" />
-        <Item name="Eau plate ou pétillante ½" price="3,50 €" />
-        <Item name="Eau plate ou pétillante 1L" price="6,00 €" />
-      </Card>
-
-      <div className="space-y-6">
-        <Card>
-          <SectionTitle>Apéritifs</SectionTitle>
-          <Item name="Kir vin blanc" price="4,00 €" />
-          <Item name="Kir pétillant" price="7,00 €" desc="Cassis, violette, mûre, pêche" />
-          <Item name="Coupe de blanc pétillant" price="6,00 €" />
-          <Item name="Coupe de champagne" price="9,00 €" />
-          <Item name="Aperol Spritz" price="7,00 €" />
-          <Item name="Martini blanc / rouge" price="4,00 €" />
-          <Item name="Martini Bellini" price="6,00 €" />
-          <Item name="Porto blanc / rouge" price="4,00 €" />
-          <Item name="Pineau" price="4,00 €" />
-          <Item name="Ricard" price="3,50 €" />
-          <Item name="Picon vin blanc" price="6,00 €" />
-          <Item name="Picon bière 33cl" price="4,00 €" />
-        </Card>
-
-        <Card>
-          <SectionTitle>Alcools</SectionTitle>
-          <Item name="Vodka rouge / blanche" price="6,00 €" />
-          <Item name="Gin" price="6,00 €" />
-          <Item name="Rhum brun / blanc" price="6,00 €" />
-          <Item name="Pisang / Campari / Pasoa" price="6,00 €" />
-          <Item name="JB Whisky" price="6,00 €" />
-          <Item name="Jack Daniel's" price="6,00 €" />
-          <Item name="Shooter" price="3,00 €" note="Whisky Coca, Gin Tonic, etc. servis avec le soft à côté" />
-          <SubTitle>Rhums & Whiskys Premium</SubTitle>
-          <Item name="Rumbullion" price="7,00 €" />
-          <Item name="Diplomatico" price="7,00 €" />
-        </Card>
-      </div>
-    </div>
-  )
-}
-
-function Bieres() {
-  const pression = [
-    { name: 'Paix Dieu 10°', p25: '4,00 €', p33: '5,00 €', p50: '7,00 €', featured: true },
-    { name: 'Bon Secours Prestige 9°', p25: '4,00 €', p33: '5,00 €', p50: '7,00 €', featured: true },
-    { name: 'Triple Karmeliet 8,4°', p25: '4,00 €', p33: '5,00 €', p50: '7,00 €' },
-    { name: 'Kasteel Rouge 8°', p25: '3,50 €', p33: '4,50 €', p50: '6,50 €' },
-    { name: 'Leffe Blonde 6,6°', p25: '3,50 €', p33: '4,50 €', p50: '6,50 €' },
-    { name: 'Moinette 8,5°', p25: '3,50 €', p33: '4,50 €', p50: '6,50 €' },
-    { name: 'Jupiler 5,2°', p25: '2,40 €', p33: '3,40 €', p50: '4,40 €' },
-    { name: 'Monaco, Mazout, Panaché, Tango', p25: '3,00 €', p33: '4,00 €', p50: '5,00 €' },
-  ]
-
-  return (
-    <div className="space-y-6">
-      <Card>
-        <SectionTitle>Bières Pression</SectionTitle>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-canal-sand">
-                <th className="text-left py-2 font-semibold text-canal-navy">Bière</th>
-                <th className="text-right py-2 font-semibold text-canal-slate w-16">25cl</th>
-                <th className="text-right py-2 font-semibold text-canal-slate w-16">33cl</th>
-                <th className="text-right py-2 font-semibold text-canal-slate w-16">50cl</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pression.map((b) => (
-                <tr
-                  key={b.name}
-                  className={`border-b border-canal-sand/60 last:border-0 ${b.featured ? 'bg-canal-gold/5' : ''}`}
-                >
-                  <td className={`py-2.5 pr-4 ${b.featured ? 'font-semibold text-canal-navy' : 'text-canal-charcoal'}`}>
-                    {b.name}
-                  </td>
-                  <td className="text-right py-2.5 text-canal-gold font-medium">{b.p25}</td>
-                  <td className="text-right py-2.5 text-canal-gold font-medium">{b.p33}</td>
-                  <td className="text-right py-2.5 text-canal-gold font-medium">{b.p50}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Card>
-
-      <Card>
-        <SectionTitle>Bières Bouteilles, Trappistes & Régionale</SectionTitle>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
-          <div>
-            <Item name="Jupiler NA 0° (25cl)" price="3,00 €" />
-            <Item name="Rodenbach 5,2° (25cl)" price="3,50 €" />
-            <Item name="Hoegaarden Citron/Rosée 3° (25cl)" price="3,50 €" />
-            <Item name="Kriek 5,2° (25cl)" price="3,50 €" />
-            <Item name="Leffe Brune 6,5°" price="5,00 €" />
-            <Item name="Bush Ambrée 12°" price="5,00 €" />
-            <Item name="Kwak Ambrée 8,4°" price="5,00 €" />
-            <Item name="Corne Triple 10°" price="5,00 €" />
-            <Item name="Omer 8°" price="5,00 €" />
-            <Item name="Duvel Blonde 8,5°" price="5,00 €" />
-          </div>
-          <div>
-            <Item name="Chouffe Blonde 8°" price="5,00 €" />
-            <Item name="Saint Feuillien Blonde 7,5°" price="5,00 €" />
-            <Item name="Desperados 5,9°" price="5,00 €" />
-            <Item name="Pêche Mel Bush 8,5°" price="5,00 €" />
-            <Item name="Fram'Bush 8,5°" price="5,00 €" />
-            <Item name="Chimay Rouge 7°" price="5,00 €" />
-            <Item name="Chimay Bleue 9°" price="5,00 €" />
-            <Item name="Orval 6,2°" price="5,00 €" />
-            <Item name="Westmalle Triple 9,5°" price="5,00 €" />
-            <Item name="Satcheu 6,3° (75cl)" price="10,00 €" />
-          </div>
-        </div>
-      </Card>
-    </div>
-  )
-}
-
-function Vins() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="space-y-6">
-        <Card>
-          <SectionTitle>Vins au Verre</SectionTitle>
-          <Item name="Verre de vin (Pays d'Oc)" price="4,00 €" desc="Rouge, blanc ou rosé" />
-          <Item name="¼ Pays d'Oc" price="5,00 €" />
-          <Item name="½ Pays d'Oc" price="9,00 €" />
-        </Card>
-        <Card>
-          <SectionTitle>Vins Rouges (75cl)</SectionTitle>
-          <Item name="Côtes du Rhône" price="22,00 €" />
-          <Item name="Saint Émilion" price="25,00 €" />
-        </Card>
-      </div>
-      <div className="space-y-6">
-        <Card>
-          <SectionTitle>Vins Blancs (75cl)</SectionTitle>
-          <Item name="Chardonnay" price="20,00 €" />
-          <Item name="Puits d'Amour (sucré)" price="20,00 €" />
-        </Card>
-        <Card>
-          <SectionTitle>Vin Rosé (75cl)</SectionTitle>
-          <Item name="Rosé Pays d'Oc" price="18,00 €" />
-        </Card>
-        <Card>
-          <SectionTitle>Bulles & Champagne</SectionTitle>
-          <Item name="Martini Bellini (bouteille)" price="32,00 €" />
-          <Item name="Cava (bouteille)" price="40,00 €" />
-          <Item name="Champagne (bouteille)" price="60,00 €" />
-        </Card>
-      </div>
-    </div>
-  )
-}
-
-function Desserts() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="space-y-6">
-        <Card>
-          <SectionTitle>Coupes Glacées</SectionTitle>
-          <Item name="Dame blanche" price="7,00 €" />
-          <Item name="Dame noire" price="7,00 €" />
-          <Item name="Brésilienne" price="7,00 €" />
-          <Item name="Pistachio" price="7,00 €" desc="Pistache, chocolat, vanille" />
-          <Item name="Colonel" price="8,00 €" desc="Sorbet citron & vodka" />
-          <Item name="Café liégeois" price="7,00 €" />
-          <Item name="Nougat glacé" price="6,00 €" />
-        </Card>
-        <Card>
-          <SectionTitle>Desserts</SectionTitle>
-          <Item name="Tarte de saison" price="6,00 €" />
-          <Item name="Mi-cuit au chocolat" price="7,00 €" />
-        </Card>
-      </div>
-      <div className="space-y-6">
-        <Card>
-          <SectionTitle>Crêpes</SectionTitle>
-          <Item name="Sucre" price="4,50 €" />
-          <Item name="Confiture" price="5,00 €" />
-          <Item name="Nutella ou Spéculoos" price="7,00 €" />
-        </Card>
-        <Card>
-          <SectionTitle>Gaufres Liégeoises</SectionTitle>
-          <Item name="Nature" price="3,00 €" />
-          <Item name="Sucre glace" price="3,50 €" />
-          <Item name="Chantilly" price="4,00 €" />
-          <Item name="Chocolat ou Spéculoos" price="6,00 €" />
-        </Card>
-        <Card>
-          <SectionTitle>Cafés Gourmands</SectionTitle>
-          <Item name="Café gourmand" price="9,00 €" />
-          <Item name="Thé gourmand" price="9,50 €" />
-          <Item name="Irish gourmand" price="14,00 €" />
-        </Card>
-      </div>
-    </div>
-  )
-}
-
-function BoissonsChaudes() {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="space-y-6">
-        <Card>
-          <SectionTitle>Cafés</SectionTitle>
-          <Item name="Expresso / Décaféiné" price="2,20 €" />
-          <Item name="Café allongé / Décaféiné" price="2,70 €" />
-          <Item name="Grand café" price="3,20 €" />
-          <Item name="Double expresso" price="3,00 €" />
-          <Item name="Cappuccino" price="3,50 €" />
-        </Card>
-        <Card>
-          <SectionTitle>Boissons Chaudes</SectionTitle>
-          <Item name="Chocolat chaud" price="3,00 €" />
-          <Item name="Chocolat viennois" price="3,50 €" />
-          <Item name="Thé (menthe, citron, fruits rouges)" price="2,50 €" />
-          <Item name="Soupe maison" price="3,50 €" />
-          <Item name="Soupe Royco" price="2,50 €" />
-        </Card>
-      </div>
-      <div className="space-y-6">
-        <Card>
-          <SectionTitle>Cafés Spéciaux</SectionTitle>
-          <Item name="Irish Coffee" price="8,00 €" />
-          <Item name="Irish Coffee XL" price="12,00 €" />
-          <Item name="Jamaïcan Coffee" price="8,50 €" />
-          <Item name="French Coffee" price="8,50 €" />
-          <Item name="Baileys Coffee" price="8,50 €" />
-          <Item name="Italian Coffee" price="8,50 €" />
-          <Item name="Cointreau / Grand Marnier Coffee" price="7,50 €" />
-        </Card>
-        <Card>
-          <SectionTitle>Digestifs</SectionTitle>
-          <Item name="Get 27 / Get 31" price="7,00 €" />
-          <Item name="Limoncello" price="7,00 €" />
-          <Item name="Baileys" price="7,00 €" />
-          <Item name="Amaretto" price="7,00 €" />
-          <Item name="Cointreau" price="7,00 €" />
-          <Item name="Eau de Villée" price="7,00 €" />
-          <Item name="Poire Williams" price="7,00 €" />
-          <Item name="Cognac" price="7,00 €" />
-          <Item name="Grand Marnier" price="7,00 €" />
-          <Item name="Calvados" price="7,00 €" />
-          <Item name="Armagnac" price="7,00 €" />
-        </Card>
-      </div>
-    </div>
-  )
-}
-
-const tabContent: Record<Tab, React.ReactNode> = {
-  restauration: <RestaurationType />,
-  boissons: <Boissons />,
-  bieres: <Bieres />,
-  vins: <Vins />,
-  desserts: <Desserts />,
-  chauds: <BoissonsChaudes />,
 }
 
 export default function CartePage() {
-  const [activeTab, setActiveTab] = useState<Tab>('restauration')
+  const [activeTab, setActiveTab] = useState('boissons')
+  const isScrollingTo = useRef(false)
+
+  function scrollToSection(id: string) {
+    const el = document.getElementById('tab-' + id)
+    if (!el) return
+    const nav = document.getElementById('menu-nav')
+    const navBottom = nav?.getBoundingClientRect().bottom ?? 0
+    const top = el.getBoundingClientRect().top + window.scrollY - navBottom - 8
+    isScrollingTo.current = true
+    setActiveTab(id)
+    window.scrollTo({ top, behavior: 'smooth' })
+    setTimeout(() => { isScrollingTo.current = false }, 800)
+  }
+
+  // Scroll active tab button into view in the nav bar
+  useEffect(() => {
+    const btn = document.querySelector<HTMLElement>(`#menu-nav [data-section="${activeTab}"]`)
+    btn?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+  }, [activeTab])
+
+  // Update active tab while scrolling
+  useEffect(() => {
+    const sections = document.querySelectorAll<HTMLElement>('.menu-section')
+    const observer = new IntersectionObserver((entries) => {
+      if (isScrollingTo.current) return
+      const visible = entries.filter(e => e.isIntersecting)
+      if (!visible.length) return
+      visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+      setActiveTab(visible[0].target.id.replace('tab-', ''))
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 })
+    sections.forEach(s => observer.observe(s))
+    return () => observer.disconnect()
+  }, [])
+
+  // Fetch suggestions du jour from Supabase
+  useEffect(() => {
+    const URL  = 'https://aqcqfovvyliizfiavhur.supabase.co'
+    const KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxY3Fmb3Z2eWxpaXpmaWF2aHVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3NjI4OTEsImV4cCI6MjA4NTMzODg5MX0.EMauvyJ5lXJmSWjFFMVQwv0LaTSI3A78sHU2DZIdn54'
+    const LABELS: Record<string, string> = { entree: 'Entrée', plat: 'Plat', dessert: 'Dessert' }
+    const ORDER:  Record<string, number> = { entree: 0, plat: 1, dessert: 2 }
+
+    fetch(`${URL}/rest/v1/suggestions?select=*&order=type`, {
+      headers: { apikey: KEY, Authorization: `Bearer ${KEY}` },
+    })
+      .then(r => r.json())
+      .then((data: any[]) => {
+        const block   = document.getElementById('tableau-noir')
+        const content = document.getElementById('tableau-noir-content')
+        if (!block || !content) return
+        const actives = data
+          .filter(s => s.actif)
+          .sort((a, b) => {
+            const d = (ORDER[a.type] ?? 0) - (ORDER[b.type] ?? 0)
+            return d !== 0 ? d : parseFloat(a.prix) - parseFloat(b.prix)
+          })
+        if (!actives.length) { block.style.display = 'none'; return }
+        content.innerHTML = actives.map(s => {
+          const prix = parseFloat(s.prix).toFixed(2).replace('.', ',') + ' €'
+          const desc = s.description ? `<span class="tn-desc">${s.description}</span>` : ''
+          const rb   = s.en_rupture ? '<span class="tn-rupture-badge">Rupture de stock</span>' : ''
+          return `<div class="tn-item${s.en_rupture ? ' tn-rupture' : ''}">
+            <div class="tn-left">
+              <span class="tn-badge tn-${s.type}">${LABELS[s.type] || s.type}</span>
+              <span class="tn-name">${s.nom}</span>${desc}${rb}
+            </div>
+            <span class="tn-price">${prix}</span>
+          </div>`
+        }).join('')
+      })
+      .catch(() => {
+        const b = document.getElementById('tableau-noir')
+        if (b) b.style.display = 'none'
+      })
+  }, [])
 
   return (
     <>
-      {/* Hero */}
-      <div className="bg-canal-navy pt-28 pb-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold text-white mb-3"
-          >
-            Notre Carte
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-white/60 text-sm"
-          >
-            Brasserie · Terrasse
-          </motion.p>
-        </div>
-      </div>
+      {/* Spacer for fixed site header */}
+      <div className="h-28 bg-canal-navy" />
 
-      {/* Tabs */}
-      <div className="sticky top-16 z-30 bg-white border-b border-canal-sand shadow-sm">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex overflow-x-auto gap-1 py-2 scrollbar-hide">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                  activeTab === tab.id
-                    ? 'bg-canal-navy text-white'
-                    : 'text-canal-slate hover:bg-canal-cream hover:text-canal-navy'
-                }`}
-              >
-                <span>{tab.emoji}</span>
-                <span>{tab.label}</span>
-              </button>
-            ))}
+      {/* Sticky nav tabs */}
+      <nav id="menu-nav" className="menu-nav sticky top-[88px] z-30">
+        {TABS.map(tab => (
+          <button
+            key={tab.id}
+            data-section={tab.id}
+            className={activeTab === tab.id ? 'active' : ''}
+            onClick={() => scrollToSection(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </nav>
+
+      <div className="menu-carte">
+
+        {/* ── BOISSONS ── */}
+        <section className="menu-section" id="tab-boissons">
+          <h2 className="page-title">Nos Boissons</h2>
+
+          <div className="category">
+            <div className="category-title">Softs <span style={{ fontWeight: 400, fontSize: 11, opacity: 0.8, textTransform: 'none' }}>(20cl)</span></div>
+            <Item name="Pepsi"                        price="2,50 €" />
+            <Item name="Pepsi Max"                    price="2,50 €" />
+            <Item name="Fanta"                        price="2,50 €" />
+            <Item name="Sprite"                       price="2,50 €" />
+            <Item name="Lipton Ice Tea Pêche"         price="2,50 €" />
+            <Item name="Lipton Ice Tea Pétillant"     price="2,50 €" />
+            <Item name="Tonissteiner Citron"          price="2,50 €" />
+            <Item name="Jus de fruits"                price="2,80 €" desc="Orange, ananas, pomme, pomme-cerise, pamplemousse" />
+            <Item name="Bliss"                        price="2,80 €" desc="Tonic, Agrumes, Pink, Lemon" />
+            <Item name="Red Bull (33cl)"              price="3,50 €" />
+            <Item name="Supplément sirop"             price="+ 0,50 €" sup />
+            <div className="category-subtitle">Eaux</div>
+            <Item name="Eau plate ou pétillante ¼ Chaudfontaine" price="2,50 €" />
+            <Item name="Eau plate ou pétillante 1L Ordal"        price="6,00 €" />
           </div>
-        </div>
-      </div>
 
-      {/* Content */}
-      <div className="bg-canal-cream min-h-screen py-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-            >
-              {tabContent[activeTab]}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
+          <div className="category">
+            <div className="category-title">Apéritifs</div>
+            <Item name="Ricard"                       price="3,50 €" />
+            <Item name="Kir vin blanc"                price="4,00 €" />
+            <Item name="Martini blanc / rouge"        price="4,00 €" />
+            <Item name="Porto blanc / rouge"          price="4,00 €" />
+            <Item name="Pineau"                       price="4,00 €" />
+            <Item name="Picon bière 33cl"             price="4,00 €" />
+            <Item name="Coupe de blanc pétillant"     price="6,00 €" />
+            <Item name="Martini Bellini"              price="6,00 €" />
+            <Item name="Picon vin blanc"              price="6,00 €" />
+            <Item name="Kir pétillant"                price="7,00 €" desc="Cassis, violette, mûre, pêche" />
+            <Item name="Aperol Spritz"                price="7,00 €" />
+            <Item name="Limoncello Spritz"            price="7,00 €" />
+            <Item name="Spritz Saint-Germain"         price="8,00 €" fav />
+            <Item name="Coupe de champagne"           price="9,00 €" />
+          </div>
 
-      {/* Mention légale */}
-      <div className="bg-canal-navy py-4 text-center">
-        <p className="text-white/40 text-xs">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
+          <div className="category">
+            <div className="category-title">Alcools</div>
+            <Item name="Vodka rouge / blanche"        price="5,00 €" />
+            <Item name="Gin"                          price="5,00 €" />
+            <Item name="Rhum brun / blanc"            price="5,00 €" />
+            <Item name="Pisang / Campari / Pasoa"     price="5,00 €" />
+            <Item name="J&B Whisky"                   price="5,00 €" />
+            <Item name="Jack Daniel's"                price="6,00 €" />
+            <Item name="Rumbullion"                   price="7,00 €" />
+            <Item name="Diplomatico"                  price="7,00 €" />
+            <div className="item" style={{ borderBottom: 'none' }}>
+              <div className="item-left">
+                <span className="item-note">Whisky Coca, Gin Tonic, etc. servis avec le soft à côté (soft en supplément)</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="category">
+            <div className="category-title">Digestifs</div>
+            <Item name="Get 27 / Get 31"   price="7,00 €" />
+            <Item name="Limoncello"        price="7,00 €" />
+            <Item name="Baileys"           price="7,00 €" />
+            <Item name="Amaretto"          price="7,00 €" />
+            <Item name="Cointreau"         price="7,00 €" />
+            <Item name="Eau de Villée"     price="7,00 €" />
+            <Item name="Poire Williams"    price="7,00 €" />
+            <Item name="Cognac"            price="7,00 €" />
+            <Item name="Grand Marnier"     price="7,00 €" />
+            <Item name="Calvados"          price="7,00 €" />
+            <Item name="Armagnac"          price="7,00 €" />
+          </div>
+        </section>
+
+        {/* ── BIÈRES ── */}
+        <section className="menu-section" id="tab-bieres">
+          <h2 className="page-title">Nos Bières</h2>
+
+          <div className="category">
+            <div className="category-title">Bières Pression</div>
+            <table className="beer-table">
+              <thead>
+                <tr><th></th><th>25cl</th><th>33cl</th><th>50cl</th></tr>
+              </thead>
+              <tbody>
+                <tr className="favorite"><td>Paix Dieu 10°</td>           <td className="price">4,50 €</td><td className="price">6,00 €</td><td className="price">8,00 €</td></tr>
+                <tr><td>Bon Secours Prestige 9°</td>                       <td className="price">4,50 €</td><td className="price">6,00 €</td><td className="price">8,00 €</td></tr>
+                <tr><td>Triple Karmeliet 8,4°</td>                         <td className="price">4,50 €</td><td className="price">6,00 €</td><td className="price">8,00 €</td></tr>
+                <tr><td>Kasteel Rouge 8°</td>                              <td className="price">4,50 €</td><td className="price">6,00 €</td><td className="price">8,00 €</td></tr>
+                <tr><td>Paix Dieu Nova 6°</td>                             <td className="price">4,00 €</td><td className="price">5,00 €</td><td className="price">7,00 €</td></tr>
+                <tr><td>Leffe Blonde 6,6°</td>                             <td className="price">4,00 €</td><td className="price">5,00 €</td><td className="price">7,00 €</td></tr>
+                <tr><td>Moinette 8,5°</td>                                 <td className="price">3,50 €</td><td className="price">4,50 €</td><td className="price">6,50 €</td></tr>
+                <tr><td>Jupiler 5,2°</td>                                  <td className="price">2,40 €</td><td className="price">3,40 €</td><td className="price">4,40 €</td></tr>
+                <tr><td>Monaco, Mazout, Panaché, Tango</td>                <td className="price">3,00 €</td><td className="price">4,00 €</td><td className="price">5,00 €</td></tr>
+              </tbody>
+            </table>
+            <div className="item" style={{ borderTop: '1px solid #f0ece3' }}>
+              <div className="item-left"><span className="item-note">Bière du moment — voir tableau des suggestions</span></div>
+            </div>
+          </div>
+
+          <div className="category">
+            <div className="category-title">Bières Bouteilles, Trappistes &amp; Régionale <span style={{ fontWeight: 400, fontSize: 11, opacity: 0.8, textTransform: 'none' }}>(33cl)</span></div>
+            <Item name="Jupiler NA 0° (25cl)"                       price="3,00 €" />
+            <Item name="Rodenbach 5,2° (25cl)"                      price="4,00 €" />
+            <Item name="Hoegaarden Blanche / Rosé 3° (25cl)"        price="4,00 €" />
+            <Item name="Maes Citron (25cl)"                         price="4,00 €" />
+            <Item name="Kriek 5,2° (25cl)"                          price="3,50 €" />
+            <Item name="Leffe Brune 6,5°"                           price="5,00 €" />
+            <Item name="Bush Ambrée 12°"                            price="5,00 €" />
+            <Item name="Omer 8°"                                    price="5,00 €" />
+            <Item name="Duvel Blonde 8,5°"                          price="5,00 €" />
+            <Item name="Chouffe Blonde 8°"                          price="5,00 €" />
+            <Item name="Saint Feuillien Blonde 7,5°"                price="5,00 €" />
+            <Item name="Desperados 5,9°"                            price="5,00 €" />
+            <Item name="Pêche Mel Bush 8,5°"                        price="5,00 €" />
+            <Item name="Fram'Bush 8,5°"                             price="5,00 €" />
+            <Item name="Chimay Rouge 7°"                            price="5,00 €" />
+            <Item name="Chimay Bleue 9°"                            price="5,00 €" />
+            <Item name="Orval 6,2°"                                 price="5,00 €" />
+            <Item name="Westmalle Triple 9,5°"                      price="5,00 €" />
+            <Item name="Kasteel Tropicale 7°"                       price="5,00 €" />
+          </div>
+        </section>
+
+        {/* ── VINS ── */}
+        <section className="menu-section" id="tab-vins">
+          <h2 className="page-title">Nos Vins</h2>
+
+          <div className="category">
+            <div className="category-title">Vins au Verre</div>
+            <Item name="Verre de vin (Pays d'Oc)" price="4,00 €" desc="Rouge, blanc ou rosé" />
+            <Item name="¼ Pays d'Oc"              price="5,00 €" />
+            <Item name="½ Pays d'Oc"              price="9,00 €" />
+          </div>
+          <div className="category">
+            <div className="category-title">Vins Rouges (75cl)</div>
+            <Item name="Côtes du Rhône" price="22,00 €" />
+            <Item name="Saint Émilion"  price="25,00 €" />
+          </div>
+          <div className="category">
+            <div className="category-title">Vins Blancs (75cl)</div>
+            <Item name="Chardonnay"    price="20,00 €" />
+            <Item name="Puits d'Amour" price="20,00 €" desc="Sucré" />
+          </div>
+          <div className="category">
+            <div className="category-title">Vin Rosé (75cl)</div>
+            <Item name="Rosé Pays d'Oc" price="18,00 €" />
+          </div>
+          <div className="category">
+            <div className="category-title">Bulles &amp; Champagne</div>
+            <Item name="Martini Bellini (bouteille)" price="32,00 €" />
+            <Item name="Cava (bouteille)"            price="40,00 €" />
+            <Item name="Champagne (bouteille)"       price="60,00 €" />
+          </div>
+        </section>
+
+        {/* ── RESTAURATION ── */}
+        <section className="menu-section" id="tab-restauration">
+          <h2 className="page-title">Restauration</h2>
+          <p className="page-hours">Tous les jours 12h–14h &bull; Jeudi, vendredi, samedi 19h–21h</p>
+
+          <div className="category">
+            <div className="category-title">Plats Principaux</div>
+            <Item name="Burger du Canal" price="18,00 €" fav
+              desc="Steak 180g, cheddar, pickles concombre, oignons frais et frits, sauce secrète maison — option double steak +3€" />
+            <Item name="Pavé de boeuf (250gr)" price="22,00 €"
+              desc="Sauce maison au choix : maroilles, champignons, poivre, béarnaise, café de paris ou mayonnaise" />
+            <Item name="Filet américain"   price="18,00 €" />
+            <Item name="Tartare de boeuf" price="18,00 €" />
+            <Item name="Pâtes forestière" price="16,00 €" fav />
+            <Item
+              name={<>Rigatoni au pesto de légumes <span className="veggie-badge">V</span></>}
+              price="16,00 €"
+              desc="Aubergines, courgettes, parmesan, poivrons"
+            />
+            <Item name="Poisson du jour (selon arrivage)" price="22,00 €" />
+          </div>
+
+          <div className="accomp-box">
+            <div className="accomp-title">Servi avec accompagnement au choix et crudités</div>
+            <div className="accomp-items">Frites maison &bull; Croquette de pomme de terre &bull; Riz &bull; Pâtes</div>
+            <div className="accomp-note">* Accompagnement en supplément + 2,50 €</div>
+          </div>
+
+          <div className="category">
+            <div className="category-title">Menu Enfant</div>
+            <Item name="Menu complet" price="9,90 €"
+              desc="Au choix : Jambon · Nuggets · Filet américain · Steak haché — servi avec frites, crudités et une boule de glace au choix" />
+          </div>
+
+          <div className="tableau-noir" id="tableau-noir">
+            <div className="tableau-noir-title">Suggestions du jour</div>
+            <hr className="tableau-noir-divider" />
+            <div id="tableau-noir-content">
+              <p style={{ fontFamily: 'Caveat, cursive', color: 'rgba(255,255,255,0.45)', fontSize: 18, textAlign: 'center', padding: '8px 0 4px' }}>Chargement…</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── PLANCHES & TAPAS ── */}
+        <section className="menu-section" id="tab-planches">
+          <h2 className="page-title">Planches &amp; Tapas</h2>
+          <p className="page-hours">Tous les jours à partir de 17h</p>
+
+          <div className="category">
+            <div className="category-title">Planches Apéritives</div>
+            <Item name="Grande planche mixte" price="18,00 €" fav />
+            <Item name="Petite planche mixte" price="14,00 €" />
+            <Item name="Planche fromage"       price="12,00 €" />
+            <Item name="Planche charcuterie"   price="11,00 €" />
+            <Item name="Supplément pain"       price="+ 1,00 €" sup />
+          </div>
+
+          <div className="category">
+            <div className="category-title">Tapas &amp; Snacks</div>
+            <Item name="Chips"                                    price="1,50 €" />
+            <Item name="Frites maison"                            price="4,00 €" />
+            <Item name="Supplément sauce maison cheddar ou maroilles" price="+ 2,00 €" sup />
+            <Item name="Mozzarella Fingers (6 pièces)"            price="5,00 €" />
+            <Item name="Calamars frits (6 pièces)"                price="5,00 €" />
+            <Item name="Tempura de crevettes (6 pièces)"          price="6,00 €" />
+            <Item name="Saucisson sec (nature ou noisette)"       price="6,50 €" />
+            <Item name="Wings (5 pièces)"                         price="7,00 €" />
+            <Item name="Tenders (5 pièces)"                       price="7,00 €" />
+            <Item name="Trio de tapas au choix"                   price="16,00 €" fav />
+          </div>
+        </section>
+
+        {/* ── DESSERTS ── */}
+        <section className="menu-section" id="tab-desserts">
+          <h2 className="page-title">Nos Desserts</h2>
+
+          <div className="category">
+            <div className="category-title">Coupes Glacées</div>
+            <Item name="Dame blanche"  price="7,00 €" fav />
+            <Item name="Dame noire"    price="7,00 €" />
+            <Item name="Brésilienne"   price="7,00 €" />
+            <Item name="Pistachio"     price="7,00 €" desc="Pistache, chocolat, vanille" />
+            <Item name="Colonel"       price="8,00 €" desc="Sorbet citron & vodka" />
+            <Item name="Café liégeois" price="7,00 €" />
+            <Item name="Nougat glacé"  price="6,00 €" />
+          </div>
+
+          <div className="category">
+            <div className="category-title">Desserts</div>
+            <Item name="Tarte maison"                       price="7,00 €" />
+            <Item name="Baba au Rhum"                       price="8,00 €" />
+            <Item name="Crème brûlée maison"                price="6,00 €" />
+            <Item name="Tiramisu Napolitain maison"         price="8,00 €" fav />
+            <Item name="Brioche perdue caramel beurre salé" price="8,00 €" />
+          </div>
+
+          <div className="category">
+            <div className="category-title">Crêpes <span style={{ fontWeight: 400, fontSize: 11, opacity: 0.8 }}>jusqu&apos;à 18h</span></div>
+            <Item name="Sucre"                price="4,00 €" />
+            <Item name="Nutella"              price="4,50 €" />
+            <Item name="Mikado"               price="6,00 €" />
+            <Item name="Supplément Chantilly" price="+ 0,50 €" sup />
+          </div>
+
+          <div className="category">
+            <div className="category-title">Cafés Gourmands</div>
+            <Item name="Café gourmand"  price="9,00 €" />
+            <Item name="Thé gourmand"   price="9,50 €" />
+            <Item name="Irish gourmand" price="14,00 €" fav />
+          </div>
+        </section>
+
+        {/* ── BOISSONS CHAUDES ── */}
+        <section className="menu-section" id="tab-chauds">
+          <h2 className="page-title">Boissons Chaudes</h2>
+
+          <div className="category">
+            <div className="category-title">Cafés</div>
+            <Item name="Expresso / Décaféiné"     price="2,20 €" />
+            <Item name="Café allongé / Décaféiné" price="2,70 €" />
+            <Item name="Grand café"               price="3,20 €" />
+            <Item name="Double expresso"          price="3,00 €" />
+            <Item name="Cappuccino"               price="3,50 €" />
+          </div>
+
+          <div className="category">
+            <div className="category-title">Boissons Chaudes</div>
+            <Item name="Chocolat chaud"    price="3,00 €" />
+            <Item name="Chocolat viennois" price="3,50 €" />
+            <Item name="Thé"               price="2,50 €" desc="Menthe, citron, fruits rouges" />
+          </div>
+
+          <div className="category">
+            <div className="category-title">Cafés Spéciaux</div>
+            <Item name="Irish Coffee"                     price="8,00 €" fav />
+            <Item name="Irish Coffee XL"                  price="12,00 €" />
+            <Item name="Jamaïcan Coffee"                  price="8,50 €" />
+            <Item name="French Coffee"                    price="8,50 €" />
+            <Item name="Baileys Coffee"                   price="8,50 €" />
+            <Item name="Italian Coffee"                   price="8,50 €" />
+            <Item name="Cointreau / Grand Marnier Coffee" price="7,50 €" />
+          </div>
+        </section>
+
+        <div className="legal-mention">
+          L&apos;abus d&apos;alcool est dangereux pour la santé. À consommer avec modération.
+        </div>
       </div>
     </>
   )
