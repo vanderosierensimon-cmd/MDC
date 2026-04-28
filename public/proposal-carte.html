@@ -3,31 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu - La Maison du Canal</title>
+  <title>Proposition – La Carte | La Maison du Canal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ─── TOKENS (repris du site) ─── */
     :root {
-      --navy: #3D556F;
-      --gold: #C6A15B;
+      --navy:      #3D556F;
+      --gold:      #C6A15B;
       --gold-dark: #A78445;
-      --cream: #F5F2EB;
-      --charcoal: #2E2E2E;
-      --text: #333333;
-      --text-light: #555555;
-      --white: #ffffff;
+      --cream:     #F5F2EB;
+      --sand:      #E8E2D5;
+      --charcoal:  #2E2E2E;
+      --text:      #333333;
+      --text-light:#555555;
+      --white:     #ffffff;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Montserrat', sans-serif;
@@ -35,54 +30,140 @@
       line-height: 1.5;
       color: var(--charcoal);
       background: var(--cream);
-      min-height: 100vh;
     }
 
-    /* ===== STICKY WRAPPER ===== */
-    .sticky-top {
+    /* ─── BANDEAU PROPOSITION (hors contenu site) ─── */
+    .proposal-banner {
       position: sticky;
       top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
-    }
-
-    /* ===== HEADER ===== */
-    .header {
-      background: var(--navy);
+      z-index: 200;
+      background: #0f1923;
+      color: white;
       text-align: center;
-      padding: 20px 16px 16px;
+      padding: 7px 16px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .proposal-banner .badge {
+      background: var(--gold);
+      color: #0f1923;
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 9px;
+      font-weight: 800;
     }
 
-    .header img {
-      height: 95px;
+    /* ─── HEADER DU SITE (fidèle) ─── */
+    .site-header {
+      position: sticky;
+      top: 30px; /* hauteur du bandeau */
+      z-index: 100;
+      background: var(--navy);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    }
+    .site-header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .site-logo img {
+      height: 48px;
       width: auto;
     }
-
-    .header .tagline {
-      font-size: 11px;
+    .site-logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .site-logo-name {
+      color: white;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .site-logo-sub {
       color: var(--gold);
-      font-weight: 500;
+      font-size: 9px;
+      font-weight: 600;
       letter-spacing: 3px;
       text-transform: uppercase;
-      margin-top: 6px;
+    }
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .site-nav a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+    }
+    .site-nav a:hover { color: white; }
+    .site-nav a.active {
+      color: var(--gold);
+      position: relative;
+    }
+    .site-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    .btn-reserver {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: white !important;
+      padding: 9px 20px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 3px 12px rgba(198,161,91,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-reserver:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 18px rgba(198,161,91,0.45);
+    }
+    @media (max-width: 768px) {
+      .site-header-inner { padding: 0 16px; }
+      .site-nav a:not(.btn-reserver) { display: none; }
     }
 
-    /* ===== NAV TABS ===== */
+    /* ══════════════════════════════════════════
+       MENU DIGITAL (repris de menu.lamaisonducanal.be)
+       — logo et tagline supprimés
+    ══════════════════════════════════════════ */
+
+    /* NAV TABS : sticky juste sous le header du site */
     .nav-tabs {
+      position: sticky;
+      top: 98px; /* bandeau(30) + header(68) */
+      z-index: 90;
       background: var(--navy);
-      border-top: 1px solid rgba(198,161,91,0.3);
+      border-top: 1px solid rgba(198,161,91,0.25);
       overflow-x: auto;
       white-space: nowrap;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       padding: 0 4px 4px;
       text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
     }
-
-    .nav-tabs::-webkit-scrollbar {
-      display: none;
-    }
-
+    .nav-tabs::-webkit-scrollbar { display: none; }
     .nav-tabs button {
       display: inline-block;
       background: none;
@@ -98,24 +179,22 @@
       border-bottom: 3px solid transparent;
       transition: color 0.2s, border-color 0.2s;
     }
-
     .nav-tabs button.active {
       color: var(--gold);
       border-bottom-color: var(--gold);
     }
 
-    /* ===== SECTIONS ===== */
+    /* SECTIONS */
     .section-page {
-      display: none;
+      display: block;
       padding: 16px 16px 40px;
       max-width: 640px;
       margin: 0 auto;
     }
-
-    .section-page.active {
-      display: block;
+    .section-page + .section-page {
+      border-top: 3px solid var(--navy);
+      padding-top: 24px;
     }
-
     .page-title {
       font-size: 22px;
       font-weight: 800;
@@ -126,7 +205,6 @@
       margin-bottom: 20px;
       letter-spacing: 1px;
     }
-
     .page-hours {
       text-align: center;
       font-size: 13px;
@@ -137,7 +215,7 @@
       margin-bottom: 20px;
     }
 
-    /* ===== CATEGORY BLOCK ===== */
+    /* CATEGORY */
     .category {
       margin-bottom: 24px;
       background: var(--white);
@@ -145,7 +223,6 @@
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     }
-
     .category-title {
       font-size: 13px;
       font-weight: 700;
@@ -155,7 +232,6 @@
       letter-spacing: 1px;
       text-transform: uppercase;
     }
-
     .category-subtitle {
       font-size: 11px;
       font-weight: 700;
@@ -166,7 +242,6 @@
       border-top: 1px solid #f0ece3;
       margin-top: 4px;
     }
-
     .category-hours {
       font-size: 12px;
       color: var(--gold-dark);
@@ -174,7 +249,7 @@
       padding: 6px 16px 2px;
     }
 
-    /* ===== ITEMS ===== */
+    /* ITEMS */
     .item {
       display: flex;
       justify-content: space-between;
@@ -183,23 +258,14 @@
       border-bottom: 1px solid #f5f2eb;
       gap: 12px;
     }
-
-    .item:last-child {
-      border-bottom: none;
-    }
-
-    .item-left {
-      flex: 1;
-      min-width: 0;
-    }
-
+    .item:last-child { border-bottom: none; }
+    .item-left { flex: 1; min-width: 0; }
     .item-name {
       font-size: 15px;
       font-weight: 500;
       color: var(--text);
       line-height: 1.4;
     }
-
     .item-desc {
       font-size: 13px;
       color: var(--text-light);
@@ -207,14 +273,12 @@
       margin-top: 3px;
       line-height: 1.4;
     }
-
     .item-note {
       font-size: 12px;
       color: var(--text-light);
       font-style: italic;
       margin-top: 3px;
     }
-
     .item-price {
       font-size: 15px;
       font-weight: 700;
@@ -223,32 +287,22 @@
       flex-shrink: 0;
       padding-top: 1px;
     }
-
-    /* Favorite item */
     .item.favorite {
-      background: rgba(198, 161, 91, 0.10);
+      background: rgba(198,161,91,0.10);
       border-left: 3px solid var(--gold);
     }
-
     .item.favorite .item-name::before {
       content: '♥ ';
       color: var(--gold);
       font-size: 13px;
     }
-
-    .item.favorite .item-name {
-      font-weight: 600;
-    }
-
-    /* Supplement */
+    .item.favorite .item-name { font-weight: 600; }
     .item.supplement .item-name,
     .item.supplement .item-price {
       color: var(--text-light);
       font-style: italic;
       font-size: 13px;
     }
-
-    /* Veggie badge */
     .veggie-badge {
       display: inline-block;
       background: #4a7c59;
@@ -262,168 +316,197 @@
       letter-spacing: 0.5px;
     }
 
-    /* ===== BIERE TABLE ===== */
-    .beer-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .beer-table thead tr {
-      background: rgba(61,85,111,0.08);
-    }
-
+    /* BEER TABLE */
+    .beer-table { width: 100%; border-collapse: collapse; }
+    .beer-table thead tr { background: rgba(61,85,111,0.08); }
     .beer-table th {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--navy);
-      text-align: center;
-      padding: 8px 6px;
-      border-bottom: 2px solid var(--gold);
+      padding: 8px 12px;
+      text-align: right;
+      letter-spacing: 0.5px;
     }
-
-    .beer-table th:first-child {
-      text-align: left;
-      padding-left: 16px;
-      width: 44%;
-    }
-
+    .beer-table th:first-child { text-align: left; }
     .beer-table td {
       font-size: 14px;
-      padding: 11px 6px;
-      text-align: center;
-      border-bottom: 1px solid #f0ece3;
       color: var(--text);
+      padding: 10px 12px;
+      border-bottom: 1px solid #f5f2eb;
     }
-
-    .beer-table td:first-child {
-      text-align: left;
-      padding-left: 16px;
-      font-weight: 500;
-    }
-
+    .beer-table tr:last-child td { border-bottom: none; }
     .beer-table td.price {
-      font-weight: 600;
-      color: var(--navy);
-    }
-
-    .beer-table tr.favorite td {
-      background: rgba(198, 161, 91, 0.10);
-    }
-
-    .beer-table tr.favorite td:first-child {
-      font-weight: 600;
-      border-left: 3px solid var(--gold);
-      padding-left: 13px;
-    }
-
-    .beer-table tr.favorite td:first-child::before {
-      content: '♥ ';
-      color: var(--gold);
-      font-size: 12px;
-    }
-
-    .beer-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    /* ===== ENCART ACCOMPAGNEMENTS ===== */
-    .accomp-box {
-      background: var(--cream);
-      border: 2px solid var(--gold);
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin: 0 0 24px;
-    }
-
-    .accomp-box .accomp-title {
-      font-size: 13px;
+      text-align: right;
       font-weight: 700;
       color: var(--navy);
-      margin-bottom: 6px;
+      white-space: nowrap;
+    }
+    .beer-table tr.favorite { background: rgba(198,161,91,0.08); }
+    .beer-table tr.favorite td:first-child {
+      font-weight: 700;
+      color: var(--navy);
     }
 
-    .accomp-box .accomp-items {
-      font-size: 14px;
-      color: var(--text);
-      line-height: 1.6;
+    /* ACCOMPAGNEMENT */
+    .accomp-box {
+      background: rgba(61,85,111,0.06);
+      border-left: 3px solid var(--navy);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 13px;
     }
+    .accomp-title { font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .accomp-items { color: var(--text-light); }
+    .accomp-note { color: var(--text-light); font-style: italic; font-size: 12px; margin-top: 4px; }
 
-    .accomp-box .accomp-note {
-      font-size: 12px;
-      color: var(--text-light);
-      font-style: italic;
-      margin-top: 6px;
-    }
-
-    /* ===== SUGGESTIONS BOX ===== */
-    .suggestions-box {
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    /* TABLEAU NOIR */
+    .tableau-noir {
+      background: #1a2a1a;
       border-radius: 10px;
       padding: 20px 16px;
+      margin-top: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .tableau-noir-title {
+      font-family: 'Caveat', cursive;
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
       text-align: center;
-      margin-top: 8px;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
     }
-
-    .suggestions-box .suggestions-title {
-      color: white;
-      font-size: 16px;
-      font-weight: 800;
+    .tableau-noir-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      margin: 10px 0;
+    }
+    .tableau-noir-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      gap: 12px;
+    }
+    .tableau-noir-item:last-child { border-bottom: none; }
+    .tableau-noir-item-left { flex: 1; min-width: 0; }
+    .tableau-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 0.5px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-bottom: 4px;
     }
-
-    .suggestions-box .suggestions-text {
-      color: rgba(255,255,255,0.9);
+    .tableau-badge.entree  { background: rgba(74,153,74,0.35);    color: #a8e6a8; }
+    .tableau-badge.plat    { background: rgba(255,255,255,0.15);   color: #e8e8e8; }
+    .tableau-badge.dessert { background: rgba(200,100,130,0.35);   color: #f4b8c8; }
+    .tableau-noir-name {
+      font-family: 'Caveat', cursive;
+      font-size: 22px;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1.2;
+      display: block;
+    }
+    .tableau-noir-desc {
+      font-family: 'Caveat', cursive;
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 2px;
+      display: block;
+    }
+    .tableau-noir-price {
+      font-family: 'Caveat', cursive;
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+      padding-top: 18px;
+    }
+    .tableau-noir-rupture .tableau-noir-name,
+    .tableau-noir-rupture .tableau-noir-price {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+    .tableau-noir-rupture-badge {
+      font-family: 'Caveat', cursive;
       font-size: 13px;
-      margin-top: 6px;
+      color: #e88080;
+      margin-top: 2px;
+      display: block;
+    }
+    .tableau-noir-empty {
+      font-family: 'Caveat', cursive;
+      color: rgba(255,255,255,0.45);
+      font-size: 18px;
+      text-align: center;
+      padding: 8px 0 4px;
     }
 
-    /* ===== FOOTER ===== */
-    .footer {
+    /* FOOTER */
+    .site-footer {
       background: var(--navy);
       color: rgba(255,255,255,0.7);
       text-align: center;
-      padding: 20px 16px;
+      padding: 24px 16px;
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.7;
     }
-
-    .footer strong {
-      color: var(--gold);
-      font-size: 14px;
-    }
-
-    .footer .legal {
+    .site-footer strong { color: var(--gold); font-size: 14px; }
+    .site-footer .legal {
       font-size: 11px;
-      margin-top: 6px;
-      color: rgba(255,255,255,0.45);
+      margin-top: 8px;
+      color: rgba(255,255,255,0.4);
       font-style: italic;
     }
-
   </style>
 </head>
 <body>
 
-  <!-- STICKY WRAPPER : header + onglets -->
-  <div class="sticky-top">
-    <header class="header">
-      <img src="assets/logo-blanc.png" alt="La Maison du Canal">
-      <p class="tagline">Brasserie &bull; Terrasse</p>
-    </header>
+  <!-- Bandeau proposition (hors site) -->
+  <div class="proposal-banner">
+    <span class="badge">PROPOSITION</span>
+    Visualisation avant déploiement — carte digitale intégrée sous le menu du site
+    <span class="badge">PRÉ-DÉPLOIEMENT</span>
+  </div>
 
-    <!-- NAV TABS -->
-    <nav class="nav-tabs" id="navTabs">
-    <button class="active" onclick="showTab('boissons', this)">Boissons</button>
-    <button onclick="showTab('bieres', this)">Bières</button>
-    <button onclick="showTab('vins', this)">Vins</button>
-    <button onclick="showTab('restauration', this)">Restauration</button>
-    <button onclick="showTab('planches', this)">Planches & Tapas</button>
-    <button onclick="showTab('desserts', this)">Desserts</button>
-    <button onclick="showTab('chauds', this)">Boissons Chaudes</button>
-    </nav>
-  </div><!-- /sticky-top -->
+  <!-- Header du site (fidèle à l'existant) -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="site-logo-text">
+        <span class="site-logo-name">La Maison du Canal</span>
+        <span class="site-logo-sub">Leers-Nord</span>
+      </div>
+      <nav class="site-nav">
+        <a href="#">Accueil</a>
+        <a href="#" class="active">La Carte</a>
+        <a href="#">Notre Histoire</a>
+        <a href="#">Activités</a>
+        <a href="#">Contact</a>
+        <a href="tel:+3256914285" class="btn-reserver">Réserver</a>
+      </nav>
+    </div>
+  </header>
 
-  <!-- ===================== PAGE BOISSONS ===================== -->
+  <!-- ══ NAV TABS DU MENU DIGITAL (sticky juste sous le header) ══ -->
+  <nav class="nav-tabs" id="navTabs">
+    <button class="active" data-section="boissons" onclick="scrollToSection('boissons', this)">Boissons</button>
+    <button data-section="bieres"       onclick="scrollToSection('bieres', this)">Bières</button>
+    <button data-section="vins"         onclick="scrollToSection('vins', this)">Vins</button>
+    <button data-section="restauration" onclick="scrollToSection('restauration', this)">Restauration</button>
+    <button data-section="planches"     onclick="scrollToSection('planches', this)">Planches &amp; Tapas</button>
+    <button data-section="desserts"     onclick="scrollToSection('desserts', this)">Desserts</button>
+    <button data-section="chauds"       onclick="scrollToSection('chauds', this)">Boissons Chaudes</button>
+  </nav>
+
+  <!-- ══ CONTENU DU MENU (repris de menu.lamaisonducanal.be) ══ -->
+
+  <!-- BOISSONS -->
   <section class="section-page active" id="tab-boissons">
     <h2 class="page-title">Nos Boissons</h2>
 
@@ -490,10 +573,9 @@
       <div class="item"><div class="item-left"><span class="item-name">Calvados</span></div><span class="item-price">7,00 €</span></div>
       <div class="item"><div class="item-left"><span class="item-name">Armagnac</span></div><span class="item-price">7,00 €</span></div>
     </div>
-
   </section>
 
-  <!-- ===================== PAGE BIERES ===================== -->
+  <!-- BIÈRES -->
   <section class="section-page" id="tab-bieres">
     <h2 class="page-title">Nos Bières</h2>
 
@@ -501,68 +583,18 @@
       <div class="category-title">Bières Pression</div>
       <table class="beer-table">
         <thead>
-          <tr>
-            <th></th>
-            <th>25cl</th>
-            <th>33cl</th>
-            <th>50cl</th>
-          </tr>
+          <tr><th></th><th>25cl</th><th>33cl</th><th>50cl</th></tr>
         </thead>
         <tbody>
-          <tr class="favorite">
-            <td>Paix Dieu 10°</td>
-            <td class="price">4,50 €</td>
-            <td class="price">6,00 €</td>
-            <td class="price">8,00 €</td>
-          </tr>
-          <tr>
-            <td>Bon Secours Prestige 9°</td>
-            <td class="price">4,50 €</td>
-            <td class="price">6,00 €</td>
-            <td class="price">8,00 €</td>
-          </tr>
-          <tr>
-            <td>Triple Karmeliet 8,4°</td>
-            <td class="price">4,50 €</td>
-            <td class="price">6,00 €</td>
-            <td class="price">8,00 €</td>
-          </tr>
-          <tr>
-            <td>Kasteel Rouge 8°</td>
-            <td class="price">4,50 €</td>
-            <td class="price">6,00 €</td>
-            <td class="price">8,00 €</td>
-          </tr>
-          <tr>
-            <td>Paix Dieu Nova 6°</td>
-            <td class="price">4,00 €</td>
-            <td class="price">5,00 €</td>
-            <td class="price">7,00 €</td>
-          </tr>
-          <tr>
-            <td>Leffe Blonde 6,6°</td>
-            <td class="price">4,00 €</td>
-            <td class="price">5,00 €</td>
-            <td class="price">7,00 €</td>
-          </tr>
-          <tr>
-            <td>Moinette 8,5°</td>
-            <td class="price">3,50 €</td>
-            <td class="price">4,50 €</td>
-            <td class="price">6,50 €</td>
-          </tr>
-          <tr>
-            <td>Jupiler 5,2°</td>
-            <td class="price">2,40 €</td>
-            <td class="price">3,40 €</td>
-            <td class="price">4,40 €</td>
-          </tr>
-          <tr>
-            <td>Monaco, Mazout, Panaché, Tango</td>
-            <td class="price">3,00 €</td>
-            <td class="price">4,00 €</td>
-            <td class="price">5,00 €</td>
-          </tr>
+          <tr class="favorite"><td>Paix Dieu 10°</td><td class="price">4,50 €</td><td class="price">6,00 €</td><td class="price">8,00 €</td></tr>
+          <tr><td>Bon Secours Prestige 9°</td><td class="price">4,50 €</td><td class="price">6,00 €</td><td class="price">8,00 €</td></tr>
+          <tr><td>Triple Karmeliet 8,4°</td><td class="price">4,50 €</td><td class="price">6,00 €</td><td class="price">8,00 €</td></tr>
+          <tr><td>Kasteel Rouge 8°</td><td class="price">4,50 €</td><td class="price">6,00 €</td><td class="price">8,00 €</td></tr>
+          <tr><td>Paix Dieu Nova 6°</td><td class="price">4,00 €</td><td class="price">5,00 €</td><td class="price">7,00 €</td></tr>
+          <tr><td>Leffe Blonde 6,6°</td><td class="price">4,00 €</td><td class="price">5,00 €</td><td class="price">7,00 €</td></tr>
+          <tr><td>Moinette 8,5°</td><td class="price">3,50 €</td><td class="price">4,50 €</td><td class="price">6,50 €</td></tr>
+          <tr><td>Jupiler 5,2°</td><td class="price">2,40 €</td><td class="price">3,40 €</td><td class="price">4,40 €</td></tr>
+          <tr><td>Monaco, Mazout, Panaché, Tango</td><td class="price">3,00 €</td><td class="price">4,00 €</td><td class="price">5,00 €</td></tr>
         </tbody>
       </table>
       <div class="item" style="border-top:1px solid #f0ece3;"><div class="item-left"><span class="item-note">Bière du moment — voir tableau des suggestions</span></div></div>
@@ -590,10 +622,9 @@
       <div class="item"><div class="item-left"><span class="item-name">Westmalle Triple 9,5°</span></div><span class="item-price">5,00 €</span></div>
       <div class="item"><div class="item-left"><span class="item-name">Kasteel Tropicale 7°</span></div><span class="item-price">5,00 €</span></div>
     </div>
-
   </section>
 
-  <!-- ===================== PAGE VINS ===================== -->
+  <!-- VINS -->
   <section class="section-page" id="tab-vins">
     <h2 class="page-title">Nos Vins</h2>
 
@@ -603,52 +634,41 @@
       <div class="item"><div class="item-left"><span class="item-name">¼ Pays d'Oc</span></div><span class="item-price">5,00 €</span></div>
       <div class="item"><div class="item-left"><span class="item-name">½ Pays d'Oc</span></div><span class="item-price">9,00 €</span></div>
     </div>
-
     <div class="category">
       <div class="category-title">Vins Rouges (75cl)</div>
       <div class="item"><div class="item-left"><span class="item-name">Côtes du Rhône</span></div><span class="item-price">22,00 €</span></div>
       <div class="item"><div class="item-left"><span class="item-name">Saint Émilion</span></div><span class="item-price">25,00 €</span></div>
     </div>
-
     <div class="category">
       <div class="category-title">Vins Blancs (75cl)</div>
       <div class="item"><div class="item-left"><span class="item-name">Chardonnay</span></div><span class="item-price">20,00 €</span></div>
       <div class="item"><div class="item-left"><span class="item-name">Puits d'Amour</span><p class="item-desc">Sucré</p></div><span class="item-price">20,00 €</span></div>
     </div>
-
     <div class="category">
       <div class="category-title">Vin Rosé (75cl)</div>
       <div class="item"><div class="item-left"><span class="item-name">Rosé Pays d'Oc</span></div><span class="item-price">18,00 €</span></div>
     </div>
-
     <div class="category">
       <div class="category-title">Bulles &amp; Champagne</div>
       <div class="item"><div class="item-left"><span class="item-name">Martini Bellini (bouteille)</span></div><span class="item-price">32,00 €</span></div>
       <div class="item"><div class="item-left"><span class="item-name">Cava (bouteille)</span></div><span class="item-price">40,00 €</span></div>
       <div class="item"><div class="item-left"><span class="item-name">Champagne (bouteille)</span></div><span class="item-price">60,00 €</span></div>
     </div>
-
   </section>
 
-  <!-- ===================== PAGE RESTAURATION ===================== -->
+  <!-- RESTAURATION -->
   <section class="section-page" id="tab-restauration">
     <h2 class="page-title">Restauration</h2>
     <p class="page-hours">Tous les jours 12h–14h &bull; Jeudi, vendredi, samedi 19h–21h</p>
 
     <div class="category">
-      <div class="category-title">Entrées</div>
-      <div class="item"><div class="item-left"><span class="item-name">Oeufs mimosa</span></div><span class="item-price">4,00 €</span></div>
-      <div class="item"><div class="item-left"><span class="item-name">Tartare de saumon</span></div><span class="item-price">10,00 €</span></div>
-    </div>
-
-    <div class="category">
       <div class="category-title">Plats Principaux</div>
-      <div class="item favorite"><div class="item-left"><span class="item-name">Burger du Canal</span><p class="item-desc">Steak 180g, cheddar coulant, tomates, pickles concombre maison, oignons frais &amp; frits, sauce secrète maison</p><p class="item-desc">Option double steak + 3,00 €</p></div><span class="item-price">18,00 €</span></div>
+      <div class="item favorite"><div class="item-left"><span class="item-name">Burger du Canal</span><p class="item-desc">Steak 180g, cheddar, pickles concombre, oignons frais et frits, sauce secrète maison</p><p class="item-desc">Option double steak +3€ &bull; Option bacon +1€</p></div><span class="item-price">18,00 €</span></div>
       <div class="item"><div class="item-left"><span class="item-name">Pavé de boeuf (250gr)</span><p class="item-desc">Sauce maison au choix : maroilles, champignons, poivre, béarnaise, café de paris ou mayonnaise</p></div><span class="item-price">22,00 €</span></div>
       <div class="item"><div class="item-left"><span class="item-name">Filet américain</span></div><span class="item-price">18,00 €</span></div>
       <div class="item"><div class="item-left"><span class="item-name">Tartare de boeuf</span></div><span class="item-price">18,00 €</span></div>
       <div class="item favorite"><div class="item-left"><span class="item-name">Pâtes forestière</span></div><span class="item-price">16,00 €</span></div>
-      <div class="item"><div class="item-left"><span class="item-name">Rigatoni au pesto de légumes <span class="veggie-badge">Végé</span></span><p class="item-desc">Aubergines, courgettes, parmesan, poivrons</p></div><span class="item-price">16,00 €</span></div>
+      <div class="item"><div class="item-left"><span class="item-name">Rigatoni au pesto de légumes <span class="veggie-badge">V</span></span><p class="item-desc">Aubergines, courgettes, parmesan, poivrons</p></div><span class="item-price">16,00 €</span></div>
       <div class="item"><div class="item-left"><span class="item-name">Poisson du jour (selon arrivage)</span></div><span class="item-price">22,00 €</span></div>
     </div>
 
@@ -663,13 +683,16 @@
       <div class="item"><div class="item-left"><span class="item-name">Menu complet</span><p class="item-desc">Au choix : Jambon &bull; Nuggets &bull; Filet américain &bull; Steak haché</p><p class="item-desc">Servi avec frites et crudités &bull; Une boule de glace au choix</p></div><span class="item-price">9,90 €</span></div>
     </div>
 
-    <div class="suggestions-box">
-      <p class="suggestions-title">Suggestions du jour</p>
-      <p class="suggestions-text">Consultez notre tableau pour découvrir les plats du moment</p>
+    <div class="tableau-noir" id="tableau-noir">
+      <div class="tableau-noir-title">Suggestions du jour</div>
+      <hr class="tableau-noir-divider">
+      <div id="tableau-noir-content">
+        <p class="tableau-noir-empty">Chargement…</p>
+      </div>
     </div>
   </section>
 
-  <!-- ===================== PAGE PLANCHES & TAPAS ===================== -->
+  <!-- PLANCHES & TAPAS -->
   <section class="section-page" id="tab-planches">
     <h2 class="page-title">Planches &amp; Tapas</h2>
     <p class="page-hours">Tous les jours à partir de 17h</p>
@@ -698,7 +721,7 @@
     </div>
   </section>
 
-  <!-- ===================== PAGE DESSERTS ===================== -->
+  <!-- DESSERTS -->
   <section class="section-page" id="tab-desserts">
     <h2 class="page-title">Nos Desserts</h2>
 
@@ -738,7 +761,7 @@
     </div>
   </section>
 
-  <!-- ===================== PAGE BOISSONS CHAUDES & DIGESTIFS ===================== -->
+  <!-- BOISSONS CHAUDES -->
   <section class="section-page" id="tab-chauds">
     <h2 class="page-title">Boissons Chaudes</h2>
 
@@ -767,24 +790,101 @@
       <div class="item"><div class="item-left"><span class="item-name">Italian Coffee</span></div><span class="item-price">8,50 €</span></div>
       <div class="item"><div class="item-left"><span class="item-name">Cointreau / Grand Marnier Coffee</span></div><span class="item-price">7,50 €</span></div>
     </div>
-
-
   </section>
 
+  <!-- Footer (fidèle au site) -->
+  <footer class="site-footer">
+    <strong>La Maison du Canal</strong><br>
+    Rue du Canal 6, 7730 Leers-Nord · 056 91 42 85
+    <div class="legal">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</div>
+  </footer>
+
   <script>
-    function showTab(id, btn) {
-      document.querySelectorAll('.section-page').forEach(function(s) {
-        s.classList.remove('active');
-      });
+    /* ── SCROLL INFINI (repris du menu digital) ── */
+    var _scrollingToSection = false;
+
+    function scrollToSection(id, btn) {
+      var el = document.getElementById('tab-' + id);
+      if (!el) return;
+      // Offset = bas des onglets dans le viewport au moment du clic
+      var navBottom = document.querySelector('.nav-tabs').getBoundingClientRect().bottom;
+      var top = el.getBoundingClientRect().top + window.pageYOffset - navBottom - 8;
+      _scrollingToSection = true;
+      setActiveTab(id);
+      window.scrollTo({ top: top, behavior: 'smooth' });
+      setTimeout(function() { _scrollingToSection = false; }, 800);
+    }
+
+    function setActiveTab(id) {
       document.querySelectorAll('.nav-tabs button').forEach(function(b) {
         b.classList.remove('active');
       });
-      document.getElementById('tab-' + id).classList.add('active');
-      btn.classList.add('active');
-      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      var btn = document.querySelector('.nav-tabs button[data-section="' + id + '"]');
+      if (btn) {
+        btn.classList.add('active');
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
     }
-  </script>
 
+    // IntersectionObserver : onglet actif pendant le scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      var sections = document.querySelectorAll('.section-page');
+      var observer = new IntersectionObserver(function(entries) {
+        if (_scrollingToSection) return;
+        var visible = [];
+        entries.forEach(function(e) { if (e.isIntersecting) visible.push(e); });
+        if (visible.length === 0) return;
+        visible.sort(function(a, b) {
+          return a.boundingClientRect.top - b.boundingClientRect.top;
+        });
+        var id = visible[0].target.id.replace('tab-', '');
+        setActiveTab(id);
+      }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+      sections.forEach(function(s) { observer.observe(s); });
+    });
+
+    /* ── TABLEAU NOIR — SUGGESTIONS DU JOUR ── */
+    var SUPABASE_URL  = 'https://aqcqfovvyliizfiavhur.supabase.co';
+    var SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxY3Fmb3Z2eWxpaXpmaWF2aHVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk3NjI4OTEsImV4cCI6MjA4NTMzODg5MX0.EMauvyJ5lXJmSWjFFMVQwv0LaTSI3A78sHU2DZIdn54';
+    var typeLabels    = { entree: 'Entrée', plat: 'Plat', dessert: 'Dessert' };
+    var typeOrder     = { entree: 0, plat: 1, dessert: 2 };
+
+    function renderTableauNoir(suggestions) {
+      var content = document.getElementById('tableau-noir-content');
+      var actives = suggestions
+        .filter(function(s) { return s.actif; })
+        .sort(function(a, b) {
+          var td = (typeOrder[a.type] || 0) - (typeOrder[b.type] || 0);
+          return td !== 0 ? td : parseFloat(a.prix) - parseFloat(b.prix);
+        });
+      if (actives.length === 0) {
+        document.getElementById('tableau-noir').style.display = 'none';
+        return;
+      }
+      content.innerHTML = actives.map(function(s) {
+        var prix = parseFloat(s.prix).toFixed(2).replace('.', ',') + ' €';
+        var desc = s.description ? '<span class="tableau-noir-desc">' + s.description + '</span>' : '';
+        var ruptureBadge = s.en_rupture ? '<span class="tableau-noir-rupture-badge">Rupture de stock</span>' : '';
+        var ruptureClass = s.en_rupture ? ' tableau-noir-rupture' : '';
+        return [
+          '<div class="tableau-noir-item' + ruptureClass + '">',
+          '<div class="tableau-noir-item-left">',
+          '<span class="tableau-badge ' + s.type + '">' + (typeLabels[s.type] || s.type) + '</span>',
+          '<span class="tableau-noir-name">' + s.nom + '</span>',
+          desc, ruptureBadge,
+          '</div>',
+          '<span class="tableau-noir-price">' + prix + '</span>',
+          '</div>'
+        ].join('');
+      }).join('');
+    }
+
+    fetch(SUPABASE_URL + '/rest/v1/suggestions?select=*&order=type', {
+      headers: { 'apikey': SUPABASE_ANON, 'Authorization': 'Bearer ' + SUPABASE_ANON }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) { renderTableauNoir(data); })
+    .catch(function() { document.getElementById('tableau-noir').style.display = 'none'; });
+  </script>
 </body>
 </html>

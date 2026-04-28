@@ -405,7 +405,6 @@ export default function CartePage() {
             <div className="category-title">Cafés</div>
             <Item name="Expresso / Décaféiné"     price="2,20 €" />
             <Item name="Café allongé / Décaféiné" price="2,70 €" />
-            <Item name="Grand café"               price="3,20 €" />
             <Item name="Double expresso"          price="3,00 €" />
             <Item name="Cappuccino"               price="3,50 €" />
           </div>
