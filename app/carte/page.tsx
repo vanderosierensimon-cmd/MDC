@@ -33,7 +33,17 @@ function Item({
 
 export default function CartePage() {
   const [activeTab, setActiveTab] = useState('boissons')
+  const [headerHeight, setHeaderHeight] = useState(88)
   const isScrollingTo = useRef(false)
+
+  useEffect(() => {
+    const header = document.querySelector('header')
+    if (!header) return
+    const obs = new ResizeObserver(() => setHeaderHeight(header.getBoundingClientRect().height))
+    obs.observe(header)
+    setHeaderHeight(header.getBoundingClientRect().height)
+    return () => obs.disconnect()
+  }, [])
 
   function scrollToSection(id: string) {
     const el = document.getElementById('tab-' + id)
@@ -111,10 +121,10 @@ export default function CartePage() {
   return (
     <>
       {/* Spacer for fixed site header */}
-      <div className="h-28 bg-canal-navy" />
+      <div className="bg-canal-navy" style={{ height: headerHeight }} />
 
       {/* Sticky nav tabs */}
-      <nav id="menu-nav" className="menu-nav sticky top-[88px] z-30">
+      <nav id="menu-nav" className="menu-nav sticky z-30" style={{ top: headerHeight }}>
         {TABS.map(tab => (
           <button
             key={tab.id}

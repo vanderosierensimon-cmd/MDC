@@ -195,7 +195,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {[
-              { title: "Restauration", desc: "Cuisine de brasserie généreuse. Planches, viandes, plats du jour.", delay: 0, href: "/carte.pdf", external: true, cta: "Voir la carte" },
+              { title: "Restauration", desc: "Cuisine de brasserie généreuse. Planches, viandes, plats du jour.", delay: 0, href: "/carte", external: false, cta: "Voir la carte" },
               { title: "Boissons", desc: "Large choix de bières belges, vins et softs.", delay: 0.1, href: null, cta: null },
               { title: "Terrasse & Nature", desc: "Vue sur le canal, activités nautiques, balade RAVeL.", delay: 0.2, href: "/activites", external: false, cta: "Découvrir" }
             ].map((item, idx) => (

@@ -22,7 +22,7 @@ export default function Footer() {
             <ul className="space-y-1 text-white/70">
               {[
                 { name: 'Accueil', href: '/', external: false },
-                { name: 'La Carte', href: '/carte.pdf', external: true },
+                { name: 'La Carte', href: '/carte', external: false },
                 { name: 'Notre Histoire', href: '/histoire', external: false },
                 { name: 'Activités', href: '/activites', external: false },
                 { name: 'Contact', href: '/contact', external: false },
