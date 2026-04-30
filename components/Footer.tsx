@@ -58,7 +58,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.instagram.com/lamaisonducanal"
+                href="https://www.instagram.com/maison_du_canal/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"

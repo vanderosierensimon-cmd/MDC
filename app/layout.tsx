@@ -82,7 +82,7 @@ const jsonLd = {
   image: 'https://lamaisonducanal.be/images/photos/facade.jpg',
   sameAs: [
     'https://www.facebook.com/lamaisonducanalbelgique',
-    'https://www.instagram.com/lamaisonducanal',
+    'https://www.instagram.com/maison_du_canal/',
   ],
 }
 

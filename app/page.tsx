@@ -257,7 +257,7 @@ export default function Home() {
                 Facebook
               </motion.a>
               <motion.a
-                href="https://www.instagram.com/lamaisonducanal"
+                href="https://www.instagram.com/maison_du_canal/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3 bg-canal-gold text-white rounded-full font-medium hover:bg-canal-gold-dark transition-colors focus-ring"
